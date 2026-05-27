@@ -1,0 +1,2316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wooly Bloom – Handmade Crochet Gifts Crafted With Love</title>
+<meta name="description" content="Wooly Bloom – Premium handmade crochet gifts: bouquets, keychains, plushies, and custom orders crafted with love.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --cream: #FDF8F3;
+    --beige: #F5EDE0;
+    --blush: #F7C5C5;
+    --rose: #E8A0A0;
+    --lavender: #D8C8E8;
+    --lilac: #C4A8D8;
+    --sunflower: #F5D878;
+    --gold: #E8C040;
+    --sage: #B8D4B8;
+    --warm-brown: #8B6B4A;
+    --text-dark: #3D2B1F;
+    --text-mid: #6B4F3A;
+    --text-light: #9B7B60;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  .font-display { font-family: 'Playfair Display', serif; }
+  .font-script { font-family: 'Dancing Script', cursive; }
+
+  /* ── LOADER ── */
+  #loader {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+  }
+  #loader.hidden { opacity: 0; visibility: hidden; }
+  .loader-yarn {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    border: 4px solid var(--blush);
+    border-top-color: var(--rose);
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── NAV ── */
+  #navbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(253,248,243,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(232,160,160,0.2);
+    transition: box-shadow 0.3s ease;
+  }
+  #navbar.scrolled { box-shadow: 0 4px 30px rgba(139,107,74,0.1); }
+
+  .nav-link {
+    font-size: 0.875rem; font-weight: 500; letter-spacing: 0.03em;
+    color: var(--text-mid);
+    padding: 0.5rem 0; position: relative;
+    transition: color 0.3s;
+  }
+  .nav-link::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 0; height: 1.5px;
+    background: var(--rose);
+    transition: width 0.3s ease;
+  }
+  .nav-link:hover { color: var(--rose); }
+  .nav-link:hover::after { width: 100%; }
+  .nav-link.active { color: var(--rose); }
+  .nav-link.active::after { width: 100%; }
+
+  /* ── PAGES ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── HERO ── */
+  .hero-bg {
+    background: linear-gradient(135deg, #FDF8F3 0%, #FAF0E8 40%, #F7E8F0 70%, #EEE8F5 100%);
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .floating-blob {
+    position: absolute; border-radius: 50%; opacity: 0.35;
+    animation: floatBlob 6s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+  @keyframes floatBlob {
+    from { transform: translateY(0) rotate(0deg) scale(1); }
+    to   { transform: translateY(-20px) rotate(5deg) scale(1.05); }
+  }
+
+  /* ── BUTTONS ── */
+  .btn-primary {
+    background: linear-gradient(135deg, var(--rose), var(--blush));
+    color: white; font-weight: 500; letter-spacing: 0.04em;
+    padding: 0.875rem 2rem; border-radius: 50px;
+    border: none; cursor: pointer;
+    transition: transform 0.25s, box-shadow 0.25s;
+    box-shadow: 0 4px 20px rgba(232,160,160,0.45);
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(232,160,160,0.55);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--rose); font-weight: 500;
+    padding: 0.875rem 2rem; border-radius: 50px;
+    border: 2px solid var(--rose); cursor: pointer;
+    transition: all 0.25s;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .btn-outline:hover {
+    background: var(--rose); color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(232,160,160,0.4);
+  }
+
+  .btn-whatsapp {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white; font-weight: 500;
+    padding: 0.875rem 2rem; border-radius: 50px;
+    border: none; cursor: pointer;
+    transition: all 0.25s;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.35);
+  }
+  .btn-whatsapp:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(37,211,102,0.45); }
+
+  /* ── CARDS ── */
+  .product-card {
+    background: white; border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(139,107,74,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  .product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(139,107,74,0.18);
+  }
+  .product-card .card-img {
+    height: 220px; overflow: hidden; position: relative;
+  }
+  .product-card .card-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .product-card:hover .card-img img { transform: scale(1.1); }
+  .product-card .wishlist-btn {
+    position: absolute; top: 12px; right: 12px;
+    background: white; border-radius: 50%; width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    cursor: pointer; transition: transform 0.2s;
+    border: none;
+  }
+  .product-card .wishlist-btn:hover { transform: scale(1.2); }
+  .product-card .wishlist-btn.active svg { fill: var(--rose); stroke: var(--rose); }
+
+  /* ── STARS ── */
+  .stars { color: var(--gold); letter-spacing: 2px; }
+
+  /* ── SECTION TITLES ── */
+  .section-tag {
+    display: inline-block;
+    background: linear-gradient(135deg, rgba(247,197,197,0.3), rgba(216,200,232,0.3));
+    color: var(--rose); font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 0.35rem 1rem; border-radius: 20px;
+    margin-bottom: 1rem;
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0; transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s, transform 0.7s; }
+  .reveal-left.visible { opacity: 1; transform: translateX(0); }
+  .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.7s, transform 0.7s; }
+  .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+  /* ── TOAST ── */
+  #toast-container {
+    position: fixed; bottom: 24px; right: 24px; z-index: 8000;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .toast {
+    background: white; border-radius: 12px;
+    padding: 1rem 1.5rem;
+    box-shadow: 0 8px 30px rgba(139,107,74,0.2);
+    border-left: 4px solid var(--rose);
+    font-size: 0.875rem; font-weight: 500; color: var(--text-dark);
+    transform: translateX(120%);
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    max-width: 300px;
+  }
+  .toast.show { transform: translateX(0); }
+
+  /* ── FLOATING WHATSAPP ── */
+  #fab-whatsapp {
+    position: fixed; bottom: 90px; right: 24px; z-index: 999;
+    width: 52px; height: 52px; border-radius: 50%;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+    cursor: pointer;
+    animation: pulseWA 2.5s ease infinite;
+    border: none;
+  }
+  @keyframes pulseWA {
+    0%,100% { box-shadow: 0 4px 20px rgba(37,211,102,0.5); }
+    50% { box-shadow: 0 4px 40px rgba(37,211,102,0.7), 0 0 0 8px rgba(37,211,102,0.12); }
+  }
+
+  /* ── BACK TO TOP ── */
+  #back-top {
+    position: fixed; bottom: 24px; right: 24px; z-index: 999;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--rose); color: white;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; border: none;
+    box-shadow: 0 4px 16px rgba(232,160,160,0.5);
+    opacity: 0; transition: opacity 0.3s, transform 0.3s;
+    transform: translateY(20px);
+  }
+  #back-top.show { opacity: 1; transform: translateY(0); }
+
+  /* ── MOBILE MENU ── */
+  #mobile-menu {
+    position: fixed; top: 0; right: 0; bottom: 0; z-index: 2000;
+    width: 280px;
+    background: var(--cream);
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    box-shadow: -8px 0 40px rgba(139,107,74,0.15);
+    padding: 2rem;
+    display: flex; flex-direction: column;
+  }
+  #mobile-menu.open { transform: translateX(0); }
+  #menu-overlay {
+    position: fixed; inset: 0; z-index: 1999;
+    background: rgba(61,43,31,0.4);
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+  }
+  #menu-overlay.open { opacity: 1; visibility: visible; }
+
+  /* ── MODAL ── */
+  #modal {
+    position: fixed; inset: 0; z-index: 7000;
+    background: rgba(61,43,31,0.5);
+    display: flex; align-items: center; justify-content: center;
+    padding: 1rem;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+  }
+  #modal.open { opacity: 1; visibility: visible; }
+  #modal-box {
+    background: white; border-radius: 24px;
+    max-width: 800px; width: 100%;
+    max-height: 90vh; overflow-y: auto;
+    transform: scale(0.9);
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  #modal.open #modal-box { transform: scale(1); }
+
+  /* ── INPUT STYLES ── */
+  .form-input {
+    width: 100%; padding: 0.875rem 1.25rem;
+    border: 1.5px solid rgba(232,160,160,0.3);
+    border-radius: 12px; background: white;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    color: var(--text-dark);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    outline: none;
+  }
+  .form-input:focus {
+    border-color: var(--rose);
+    box-shadow: 0 0 0 4px rgba(232,160,160,0.12);
+  }
+  .form-label {
+    display: block; font-size: 0.8rem; font-weight: 600;
+    color: var(--text-mid); margin-bottom: 0.5rem;
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+
+  /* ── GRADIENT TEXT ── */
+  .gradient-text {
+    background: linear-gradient(135deg, var(--rose), var(--lilac));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── CATEGORY CARDS ── */
+  .cat-card {
+    background: white; border-radius: 20px;
+    padding: 1.5rem; text-align: center;
+    box-shadow: 0 4px 20px rgba(139,107,74,0.07);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+  }
+  .cat-card:hover {
+    border-color: var(--blush);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(232,160,160,0.2);
+  }
+  .cat-card.active { border-color: var(--rose); }
+
+  /* ── FILTER CHIP ── */
+  .filter-chip {
+    padding: 0.4rem 1rem; border-radius: 20px;
+    border: 1.5px solid rgba(232,160,160,0.4);
+    background: white; font-size: 0.8rem; font-weight: 500;
+    color: var(--text-mid); cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-chip:hover, .filter-chip.active {
+    background: var(--rose); color: white; border-color: var(--rose);
+  }
+
+  /* ── COUNTER ── */
+  .qty-btn {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 1.5px solid rgba(232,160,160,0.4);
+    background: white; cursor: pointer; font-size: 1.1rem;
+    color: var(--text-mid); transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .qty-btn:hover { background: var(--rose); color: white; border-color: var(--rose); }
+
+  /* ── REVIEW CARD ── */
+  .review-card {
+    background: white; border-radius: 20px;
+    padding: 1.75rem;
+    box-shadow: 0 4px 20px rgba(139,107,74,0.08);
+    transition: transform 0.3s;
+  }
+  .review-card:hover { transform: translateY(-4px); }
+
+  /* ── GALLERY ── */
+  .gallery-item {
+    border-radius: 16px; overflow: hidden;
+    cursor: pointer; position: relative;
+  }
+  .gallery-item img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .gallery-item:hover img { transform: scale(1.08); }
+  .gallery-item .overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(61,43,31,0.6), transparent);
+    opacity: 0; transition: opacity 0.3s;
+    display: flex; align-items: flex-end; padding: 1rem;
+  }
+  .gallery-item:hover .overlay { opacity: 1; }
+
+  /* ── FAQ ── */
+  .faq-item { border-bottom: 1px solid rgba(232,160,160,0.2); }
+  .faq-question {
+    width: 100%; text-align: left;
+    padding: 1.25rem 0; font-weight: 600; font-size: 0.95rem;
+    color: var(--text-dark); cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    background: none; border: none;
+    transition: color 0.2s;
+  }
+  .faq-question:hover { color: var(--rose); }
+  .faq-answer {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s;
+    font-size: 0.9rem; color: var(--text-light); line-height: 1.7;
+  }
+  .faq-answer.open { max-height: 200px; padding-bottom: 1.25rem; }
+  .faq-icon { transition: transform 0.3s; font-size: 1.2rem; }
+  .faq-question.open .faq-icon { transform: rotate(45deg); }
+
+  /* ── STEP CARD ── */
+  .step-card {
+    background: white; border-radius: 20px;
+    padding: 2rem; text-align: center;
+    box-shadow: 0 4px 20px rgba(139,107,74,0.08);
+    position: relative;
+  }
+  .step-num {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--blush), var(--lavender));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-size: 1.2rem;
+    font-weight: 700; color: white;
+    margin: 0 auto 1rem;
+  }
+
+  /* ── COLOR SWATCH ── */
+  .color-swatch {
+    width: 28px; height: 28px; border-radius: 50%;
+    cursor: pointer; border: 2px solid transparent;
+    transition: all 0.2s; display: inline-block;
+  }
+  .color-swatch.active { border-color: var(--text-dark); transform: scale(1.2); }
+
+  /* ── CHECKOUT PAYMENT ── */
+  .payment-option {
+    border: 1.5px solid rgba(232,160,160,0.3); border-radius: 12px;
+    padding: 1rem 1.25rem; cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .payment-option:hover, .payment-option.active { border-color: var(--rose); background: rgba(247,197,197,0.08); }
+
+  /* ── INSTA GRID ── */
+  .insta-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+  }
+  .insta-item {
+    aspect-ratio: 1; overflow: hidden; position: relative;
+    cursor: pointer;
+  }
+  .insta-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+  .insta-item:hover img { transform: scale(1.1); }
+  .insta-item .insta-overlay {
+    position: absolute; inset: 0;
+    background: rgba(232,160,160,0.6);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s;
+    color: white; font-size: 1.5rem;
+  }
+  .insta-item:hover .insta-overlay { opacity: 1; }
+
+  /* ── TIMELINE ── */
+  .timeline-item { position: relative; padding-left: 3rem; }
+  .timeline-item::before {
+    content: ''; position: absolute; left: 1rem; top: 0; bottom: -2rem;
+    width: 2px; background: linear-gradient(to bottom, var(--blush), var(--lavender));
+  }
+  .timeline-dot {
+    position: absolute; left: 0.5rem; top: 4px;
+    width: 1rem; height: 1rem; border-radius: 50%;
+    background: linear-gradient(135deg, var(--rose), var(--lilac));
+    border: 3px solid white; box-shadow: 0 0 0 2px var(--blush);
+  }
+
+  /* ── COUPON ── */
+  .coupon-input {
+    display: flex; gap: 0;
+    border: 1.5px solid rgba(232,160,160,0.4);
+    border-radius: 12px; overflow: hidden;
+  }
+  .coupon-input input {
+    flex: 1; padding: 0.75rem 1rem; border: none; outline: none;
+    font-family: 'DM Sans', sans-serif; background: transparent;
+  }
+  .coupon-input button {
+    padding: 0.75rem 1.25rem; background: var(--rose); color: white;
+    border: none; cursor: pointer; font-weight: 600; font-size: 0.85rem;
+    transition: background 0.2s;
+  }
+  .coupon-input button:hover { background: #d48080; }
+
+  /* ── CUSTOM ORDER PREVIEW ── */
+  .preview-card {
+    background: linear-gradient(135deg, #FFF5F5, #F5F0FF);
+    border-radius: 20px; padding: 2rem;
+    border: 1.5px dashed rgba(232,160,160,0.4);
+    text-align: center; min-height: 200px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+  }
+
+  /* ── COUNTER ANIMATION ── */
+  .counter-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem; font-weight: 700;
+    background: linear-gradient(135deg, var(--rose), var(--lilac));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── HERO EMOJIS ── */
+  .hero-emoji {
+    position: absolute; font-size: 2.5rem;
+    animation: floatEmoji 4s ease-in-out infinite alternate;
+    user-select: none; pointer-events: none;
+  }
+  @keyframes floatEmoji {
+    from { transform: translateY(0) rotate(-5deg); }
+    to { transform: translateY(-15px) rotate(5deg); }
+  }
+
+  /* ── NEWSLETTER ── */
+  .newsletter-input {
+    display: flex; gap: 0;
+    border-radius: 50px; overflow: hidden;
+    box-shadow: 0 4px 20px rgba(232,160,160,0.25);
+    max-width: 480px; margin: 0 auto;
+  }
+  .newsletter-input input {
+    flex: 1; padding: 1rem 1.5rem; border: none; outline: none;
+    font-family: 'DM Sans', sans-serif; background: white;
+    color: var(--text-dark);
+  }
+  .newsletter-input button {
+    padding: 1rem 1.75rem;
+    background: linear-gradient(135deg, var(--rose), var(--lilac));
+    color: white; border: none; cursor: pointer;
+    font-weight: 600; font-size: 0.9rem;
+    transition: opacity 0.2s;
+  }
+  .newsletter-input button:hover { opacity: 0.9; }
+
+  /* Mobile-first utilities */
+  @media (max-width: 640px) {
+    .hero-emoji { font-size: 1.8rem; }
+    .counter-num { font-size: 2rem; }
+  }
+
+  /* Carousel */
+  .carousel-track {
+    display: flex; gap: 1.5rem;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .carousel-wrapper { overflow: hidden; }
+
+  /* Cart badge */
+  .cart-badge {
+    position: absolute; top: -6px; right: -8px;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--rose); color: white;
+    font-size: 0.65rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* Search bar */
+  .search-bar {
+    display: flex; align-items: center;
+    background: white; border-radius: 50px;
+    padding: 0.6rem 1.25rem;
+    box-shadow: 0 2px 12px rgba(139,107,74,0.1);
+    gap: 0.5rem;
+  }
+  .search-bar input {
+    border: none; outline: none; flex: 1;
+    font-family: 'DM Sans', sans-serif; background: transparent;
+    color: var(--text-dark); font-size: 0.9rem;
+  }
+
+  /* Masonry */
+  .masonry {
+    columns: 3 200px; gap: 1rem;
+  }
+  .masonry-item {
+    break-inside: avoid; margin-bottom: 1rem;
+    border-radius: 16px; overflow: hidden;
+  }
+  .masonry-item img { width: 100%; display: block; }
+
+  @media (max-width: 768px) {
+    .masonry { columns: 2 150px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="text-center">
+    <div class="loader-yarn mx-auto mb-3"></div>
+    <p class="font-script text-2xl" style="color:var(--rose)">Wooly Bloom</p>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div id="toast-container"></div>
+
+<!-- FAB WHATSAPP -->
+<button id="fab-whatsapp" onclick="window.open('https://wa.me/919999999999?text=Hi%20Wooly%20Bloom!%20I%27d%20like%20to%20place%20a%20custom%20order.','_blank')" title="Chat on WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</button>
+
+<!-- BACK TO TOP -->
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
+<!-- MOBILE MENU OVERLAY -->
+<div id="menu-overlay" onclick="closeMobileMenu()"></div>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu">
+  <div class="flex justify-between items-center mb-8">
+    <span class="font-script text-2xl" style="color:var(--rose)">Wooly Bloom</span>
+    <button onclick="closeMobileMenu()" class="text-2xl" style="background:none;border:none;color:var(--text-mid);cursor:pointer;">✕</button>
+  </div>
+  <nav class="flex flex-col gap-4">
+    <button class="mobile-nav-link text-left py-2 font-medium" style="color:var(--text-mid);background:none;border:none;cursor:pointer;" onclick="navigate('home');closeMobileMenu()">Home</button>
+    <button class="mobile-nav-link text-left py-2 font-medium" style="color:var(--text-mid);background:none;border:none;cursor:pointer;" onclick="navigate('shop');closeMobileMenu()">Shop</button>
+    <button class="mobile-nav-link text-left py-2 font-medium" style="color:var(--text-mid);background:none;border:none;cursor:pointer;" onclick="navigate('custom');closeMobileMenu()">Custom Order</button>
+    <button class="mobile-nav-link text-left py-2 font-medium" style="color:var(--text-mid);background:none;border:none;cursor:pointer;" onclick="navigate('gallery');closeMobileMenu()">Gallery</button>
+    <button class="mobile-nav-link text-left py-2 font-medium" style="color:var(--text-mid);background:none;border:none;cursor:pointer;" onclick="navigate('about');closeMobileMenu()">About</button>
+    <button class="mobile-nav-link text-left py-2 font-medium" style="color:var(--text-mid);background:none;border:none;cursor:pointer;" onclick="navigate('contact');closeMobileMenu()">Contact</button>
+  </nav>
+  <div class="mt-auto pt-8">
+    <button class="btn-primary w-full justify-center" onclick="navigate('custom');closeMobileMenu()">✨ Custom Order</button>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
+    <button onclick="navigate('home')" class="font-script text-2xl" style="color:var(--rose);background:none;border:none;cursor:pointer;">🧶 Wooly Bloom</button>
+
+    <!-- Desktop Nav -->
+    <div class="hidden md:flex items-center gap-7">
+      <button class="nav-link active" onclick="navigate('home')" id="nav-home">Home</button>
+      <button class="nav-link" onclick="navigate('shop')" id="nav-shop">Shop</button>
+      <button class="nav-link" onclick="navigate('custom')" id="nav-custom">Custom Order</button>
+      <button class="nav-link" onclick="navigate('gallery')" id="nav-gallery">Gallery</button>
+      <button class="nav-link" onclick="navigate('about')" id="nav-about">About</button>
+      <button class="nav-link" onclick="navigate('contact')" id="nav-contact">Contact</button>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <!-- Wishlist -->
+      <button onclick="navigate('wishlist')" class="relative p-2 hover:opacity-70 transition-opacity" style="background:none;border:none;cursor:pointer;" title="Wishlist">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span id="wishlist-count" class="cart-badge hidden">0</span>
+      </button>
+      <!-- Cart -->
+      <button onclick="navigate('cart')" class="relative p-2 hover:opacity-70 transition-opacity" style="background:none;border:none;cursor:pointer;" title="Cart">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span id="cart-count" class="cart-badge hidden">0</span>
+      </button>
+      <!-- Hamburger -->
+      <button onclick="openMobileMenu()" class="md:hidden p-2" style="background:none;border:none;cursor:pointer;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--text-dark)" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE: HOME
+═══════════════════════════════════════════════════════════ -->
+<div id="page-home" class="page active" style="padding-top:64px;">
+
+  <!-- HERO -->
+  <section class="hero-bg relative flex items-center" style="min-height:calc(100vh - 64px);">
+    <!-- Blobs -->
+    <div class="floating-blob" style="width:350px;height:350px;background:var(--blush);top:-80px;right:-80px;animation-delay:0s;"></div>
+    <div class="floating-blob" style="width:250px;height:250px;background:var(--lavender);bottom:50px;left:-60px;animation-delay:1s;"></div>
+    <div class="floating-blob" style="width:180px;height:180px;background:var(--sunflower);bottom:120px;right:200px;animation-delay:2s;opacity:0.25;"></div>
+
+    <!-- Floating emojis -->
+    <div class="hero-emoji" style="top:15%;left:5%;animation-delay:0s;">🌸</div>
+    <div class="hero-emoji" style="top:25%;right:10%;animation-delay:1s;">🌻</div>
+    <div class="hero-emoji" style="bottom:25%;left:8%;animation-delay:2s;">🧶</div>
+    <div class="hero-emoji" style="top:60%;right:5%;animation-delay:0.5s;">💜</div>
+    <div class="hero-emoji" style="bottom:15%;right:15%;animation-delay:1.5s;">🌷</div>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 w-full py-16 relative z-10">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="section-tag reveal">✨ Handcrafted with Love</div>
+          <h1 class="font-display text-5xl sm:text-6xl md:text-7xl font-bold leading-tight reveal" style="transition-delay:0.1s;">
+            Handmade<br>
+            <span class="gradient-text">Crochet Gifts</span><br>
+            <span class="font-script font-normal text-4xl sm:text-5xl" style="color:var(--text-light);">Crafted With Love</span>
+          </h1>
+          <p class="mt-6 text-lg reveal" style="color:var(--text-light);line-height:1.8;transition-delay:0.2s;">
+            Every bloom is made with heart. Surprise your loved ones with our premium handcrafted crochet bouquets, keychains, plushies & custom gifts.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-4 reveal" style="transition-delay:0.3s;">
+            <button class="btn-primary" onclick="navigate('shop')">🛍️ Shop Now</button>
+            <button class="btn-outline" onclick="navigate('custom')">✨ Customize Order</button>
+          </div>
+          <div class="mt-8 flex gap-6 reveal" style="transition-delay:0.4s;">
+            <div>
+              <span class="font-display font-bold text-2xl" style="color:var(--rose);">500+</span>
+              <p class="text-xs" style="color:var(--text-light);">Happy Customers</p>
+            </div>
+            <div style="width:1px;background:rgba(232,160,160,0.3);"></div>
+            <div>
+              <span class="font-display font-bold text-2xl" style="color:var(--lilac);">100%</span>
+              <p class="text-xs" style="color:var(--text-light);">Handmade</p>
+            </div>
+            <div style="width:1px;background:rgba(232,160,160,0.3);"></div>
+            <div>
+              <span class="font-display font-bold text-2xl" style="color:var(--gold);">⭐ 4.9</span>
+              <p class="text-xs" style="color:var(--text-light);">Avg Rating</p>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-center reveal-right">
+          <div class="relative" style="width:340px;height:380px;">
+            <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(247,197,197,0.3),rgba(216,200,232,0.3));border-radius:60% 40% 50% 60%/50% 60% 40% 50%;animation:floatBlob 5s ease-in-out infinite alternate;"></div>
+            <div style="position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
+              <div style="font-size:10rem;line-height:1;animation:floatEmoji 3s ease-in-out infinite alternate;">🌸</div>
+            </div>
+            <!-- Floating tags -->
+            <div style="position:absolute;top:20px;right:-20px;background:white;border-radius:12px;padding:0.6rem 1rem;box-shadow:0 4px 20px rgba(139,107,74,0.15);font-size:0.8rem;font-weight:600;color:var(--rose);">💕 Made with Love</div>
+            <div style="position:absolute;bottom:40px;left:-20px;background:white;border-radius:12px;padding:0.6rem 1rem;box-shadow:0 4px 20px rgba(139,107,74,0.15);font-size:0.8rem;font-weight:600;color:var(--lilac);">🎁 Custom Gifts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="py-20 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12 reveal">
+        <div class="section-tag">Categories</div>
+        <h2 class="font-display text-4xl font-bold mt-2">Shop By Collection</h2>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="cat-card reveal" onclick="navigateToShopCategory('hearts')" style="transition-delay:0s;">
+          <div style="font-size:2.5rem;margin-bottom:0.75rem;">💕</div>
+          <p class="font-medium text-sm" style="color:var(--text-dark);">Crochet Hearts</p>
+        </div>
+        <div class="cat-card reveal" onclick="navigateToShopCategory('sunflower')" style="transition-delay:0.05s;">
+          <div style="font-size:2.5rem;margin-bottom:0.75rem;">🌻</div>
+          <p class="font-medium text-sm" style="color:var(--text-dark);">Sunflower Bouquets</p>
+        </div>
+        <div class="cat-card reveal" onclick="navigateToShopCategory('keychains')" style="transition-delay:0.1s;">
+          <div style="font-size:2.5rem;margin-bottom:0.75rem;">🔑</div>
+          <p class="font-medium text-sm" style="color:var(--text-dark);">Keychains</p>
+        </div>
+        <div class="cat-card reveal" onclick="navigateToShopCategory('plushies')" style="transition-delay:0.15s;">
+          <div style="font-size:2.5rem;margin-bottom:0.75rem;">🧸</div>
+          <p class="font-medium text-sm" style="color:var(--text-dark);">Mini Plushies</p>
+        </div>
+        <div class="cat-card reveal" onclick="navigateToShopCategory('custom')" style="transition-delay:0.2s;">
+          <div style="font-size:2.5rem;margin-bottom:0.75rem;">✨</div>
+          <p class="font-medium text-sm" style="color:var(--text-dark);">Custom Orders</p>
+        </div>
+        <div class="cat-card reveal" onclick="navigateToShopCategory('hampers')" style="transition-delay:0.25s;">
+          <div style="font-size:2.5rem;margin-bottom:0.75rem;">🎁</div>
+          <p class="font-medium text-sm" style="color:var(--text-dark);">Gift Hampers</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRENDING PRODUCTS CAROUSEL -->
+  <section style="background:var(--beige);" class="py-20 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex items-end justify-between mb-10 reveal">
+        <div>
+          <div class="section-tag">Trending</div>
+          <h2 class="font-display text-4xl font-bold mt-2">Trending Now 🔥</h2>
+        </div>
+        <div class="flex gap-2">
+          <button id="prev-btn" onclick="carouselPrev()" class="qty-btn">‹</button>
+          <button id="next-btn" onclick="carouselNext()" class="qty-btn">›</button>
+        </div>
+      </div>
+      <div class="carousel-wrapper">
+        <div class="carousel-track" id="carousel">
+          <!-- Cards injected by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="py-20 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12 reveal">
+        <div class="section-tag">Process</div>
+        <h2 class="font-display text-4xl font-bold mt-2">How Custom Crochet Works</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="step-card reveal" style="transition-delay:0s;">
+          <div class="step-num">1</div>
+          <h3 class="font-display font-bold text-xl mb-2">Choose & Customize</h3>
+          <p class="text-sm" style="color:var(--text-light);">Pick your product, colors, size, and any personalization.</p>
+        </div>
+        <div class="step-card reveal" style="transition-delay:0.1s;">
+          <div class="step-num">2</div>
+          <h3 class="font-display font-bold text-xl mb-2">We Confirm</h3>
+          <p class="text-sm" style="color:var(--text-light);">Our team reviews your order and confirms via WhatsApp.</p>
+        </div>
+        <div class="step-card reveal" style="transition-delay:0.2s;">
+          <div class="step-num">3</div>
+          <h3 class="font-display font-bold text-xl mb-2">Handcrafted</h3>
+          <p class="text-sm" style="color:var(--text-light);">Each piece is hand-crocheted with premium yarn & love.</p>
+        </div>
+        <div class="step-card reveal" style="transition-delay:0.3s;">
+          <div class="step-num">4</div>
+          <h3 class="font-display font-bold text-xl mb-2">Delivered 🎁</h3>
+          <p class="text-sm" style="color:var(--text-light);">Packed beautifully and delivered to your door.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEST SELLERS -->
+  <section style="background:linear-gradient(135deg,#FFF5F5,#F5F0FF);" class="py-20 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12 reveal">
+        <div class="section-tag">Best Sellers</div>
+        <h2 class="font-display text-4xl font-bold mt-2">Customer Favorites 💕</h2>
+      </div>
+      <div id="bestseller-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Injected by JS -->
+      </div>
+      <div class="text-center mt-10 reveal">
+        <button class="btn-outline" onclick="navigate('shop')">View All Products →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- OCCASIONS -->
+  <section class="py-20 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12 reveal">
+        <div class="section-tag">Occasions</div>
+        <h2 class="font-display text-4xl font-bold mt-2">Gift for Every Moment</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="reveal" style="transition-delay:0s;">
+          <div style="background:linear-gradient(135deg,#FFE4E4,#FFD4D4);border-radius:24px;padding:2rem;text-align:center;cursor:pointer;transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform=''">
+            <div style="font-size:3rem;margin-bottom:1rem;">🎂</div>
+            <h3 class="font-display font-bold text-lg">Birthdays</h3>
+            <p class="text-sm mt-1" style="color:var(--text-light);">Make their day unforgettable</p>
+          </div>
+        </div>
+        <div class="reveal" style="transition-delay:0.1s;">
+          <div style="background:linear-gradient(135deg,#FFE8F0,#FFD4E8);border-radius:24px;padding:2rem;text-align:center;cursor:pointer;transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform=''">
+            <div style="font-size:3rem;margin-bottom:1rem;">💍</div>
+            <h3 class="font-display font-bold text-lg">Anniversary</h3>
+            <p class="text-sm mt-1" style="color:var(--text-light);">Celebrate love in bloom</p>
+          </div>
+        </div>
+        <div class="reveal" style="transition-delay:0.2s;">
+          <div style="background:linear-gradient(135deg,#FFE8F8,#F8D4F0);border-radius:24px;padding:2rem;text-align:center;cursor:pointer;transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform=''">
+            <div style="font-size:3rem;margin-bottom:1rem;">💝</div>
+            <h3 class="font-display font-bold text-lg">Valentine's</h3>
+            <p class="text-sm mt-1" style="color:var(--text-light);">The gift that never wilts</p>
+          </div>
+        </div>
+        <div class="reveal" style="transition-delay:0.3s;">
+          <div style="background:linear-gradient(135deg,#EEF0FF,#E4E8FF);border-radius:24px;padding:2rem;text-align:center;cursor:pointer;transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform=''">
+            <div style="font-size:3rem;margin-bottom:1rem;">🎓</div>
+            <h3 class="font-display font-bold text-lg">Graduation</h3>
+            <p class="text-sm mt-1" style="color:var(--text-light);">Congrats in crochet!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT BRAND SNIPPET -->
+  <section style="background:var(--beige);" class="py-20 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="reveal-left">
+          <div style="background:linear-gradient(135deg,rgba(247,197,197,0.3),rgba(216,200,232,0.3));border-radius:40px;padding:3rem;text-align:center;">
+            <div style="font-size:8rem;line-height:1;">🧶</div>
+            <p class="font-script text-2xl mt-4" style="color:var(--rose);">Every stitch tells a story</p>
+          </div>
+        </div>
+        <div class="reveal-right">
+          <div class="section-tag">Our Story</div>
+          <h2 class="font-display text-4xl font-bold mt-2 mb-4">Crafted from a Passion for Handmade Art</h2>
+          <p style="color:var(--text-light);line-height:1.9;" class="mb-4">Wooly Bloom was born from a simple love for crochet. Every product we make is handcrafted from premium yarns, designed to bring joy and warmth to the people you love.</p>
+          <p style="color:var(--text-light);line-height:1.9;" class="mb-6">We believe handmade gifts carry an irreplaceable energy — the time, care, and creativity woven into every piece.</p>
+          <button class="btn-outline" onclick="navigate('about')">Learn Our Story →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="py-20 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12 reveal">
+        <div class="section-tag">Why Choose Us</div>
+        <h2 class="font-display text-4xl font-bold mt-2">Why Wooly Bloom? 🌸</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="p-6 reveal" style="background:white;border-radius:20px;box-shadow:0 4px 20px rgba(139,107,74,0.08);transition-delay:0s;">
+          <div style="font-size:2.5rem;margin-bottom:1rem;">🎨</div>
+          <h3 class="font-display font-bold text-xl mb-2">Fully Customizable</h3>
+          <p class="text-sm" style="color:var(--text-light);">Choose your colors, sizes, and add personalized messages to make every piece uniquely yours.</p>
+        </div>
+        <div class="p-6 reveal" style="background:white;border-radius:20px;box-shadow:0 4px 20px rgba(139,107,74,0.08);transition-delay:0.1s;">
+          <div style="font-size:2.5rem;margin-bottom:1rem;">💯</div>
+          <h3 class="font-display font-bold text-xl mb-2">100% Handmade</h3>
+          <p class="text-sm" style="color:var(--text-light);">Every single item is hand-crocheted with premium quality yarn — no machines, just love.</p>
+        </div>
+        <div class="p-6 reveal" style="background:white;border-radius:20px;box-shadow:0 4px 20px rgba(139,107,74,0.08);transition-delay:0.2s;">
+          <div style="font-size:2.5rem;margin-bottom:1rem;">🚚</div>
+          <h3 class="font-display font-bold text-xl mb-2">Pan-India Delivery</h3>
+          <p class="text-sm" style="color:var(--text-light);">We ship all across India with secure packaging to ensure your gift arrives perfectly.</p>
+        </div>
+        <div class="p-6 reveal" style="background:white;border-radius:20px;box-shadow:0 4px 20px rgba(139,107,74,0.08);transition-delay:0.3s;">
+          <div style="font-size:2.5rem;margin-bottom:1rem;">⏰</div>
+          <h3 class="font-display font-bold text-xl mb-2">Quick Turnaround</h3>
+          <p class="text-sm" style="color:var(--text-light);">Express custom orders available! Most orders ready in 3–5 days.</p>
+        </div>
+        <div class="p-6 reveal" style="background:white;border-radius:20px;box-shadow:0 4px 20px rgba(139,107,74,0.08);transition-delay:0.4s;">
+          <div style="font-size:2.5rem;margin-bottom:1rem;">💬</div>
+          <h3 class="font-display font-bold text-xl mb-2">WhatsApp Support</h3>
+          <p class="text-sm" style="color:var(--text-light);">Direct chat support for order updates, customization, and queries — we're always here!</p>
+        </div>
+        <div class="p-6 reveal" style="background:white;border-radius:20px;box-shadow:0 4px 20px rgba(139,107,74,0.08);transition-delay:0.5s;">
+          <div style="font-size:2.5rem;margin-bottom:1rem;">🎁</div>
+          <h3 class="font-display font-bold text-xl mb-2">Gift-Ready Packaging</h3>
+          <p class="text-sm" style="color:var(--text-light);">Beautiful gift boxes with ribbon — ready to give directly, no extra wrapping needed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section style="background:linear-gradient(135deg,#FFF5F5,#F5F0FF);" class="py-20 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12 reveal">
+        <div class="section-tag">Reviews</div>
+        <h2 class="font-display text-4xl font-bold mt-2">Customer Stories 💕</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="review-card reveal" style="transition-delay:0s;">
+          <div class="stars mb-3">★★★★★</div>
+          <p class="text-sm mb-4" style="color:var(--text-mid);line-height:1.8;">"I ordered a custom sunflower bouquet for my best friend's birthday and she absolutely loved it! The quality is stunning and delivery was so fast."</p>
+          <div class="flex items-center gap-3">
+            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--blush),var(--lavender));display:flex;align-items:center;justify-content:center;font-size:1.2rem;">👩</div>
+            <div><p class="font-semibold text-sm">Priya Sharma</p><p class="text-xs" style="color:var(--text-light);">Mumbai</p></div>
+          </div>
+        </div>
+        <div class="review-card reveal" style="transition-delay:0.1s;">
+          <div class="stars mb-3">★★★★★</div>
+          <p class="text-sm mb-4" style="color:var(--text-mid);line-height:1.8;">"The heart bouquet I got for Valentine's Day was perfect. My girlfriend still keeps it on her desk! Flowers that truly never wilt 🥹"</p>
+          <div class="flex items-center gap-3">
+            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--sunflower),var(--gold));display:flex;align-items:center;justify-content:center;font-size:1.2rem;">👨</div>
+            <div><p class="font-semibold text-sm">Arjun Mehta</p><p class="text-xs" style="color:var(--text-light);">Pune</p></div>
+          </div>
+        </div>
+        <div class="review-card reveal" style="transition-delay:0.2s;">
+          <div class="stars mb-3">★★★★★</div>
+          <p class="text-sm mb-4" style="color:var(--text-mid);line-height:1.8;">"Got a custom mini plushie of my cat 🐱 and it looks exactly like him!! The detail is incredible. Wooly Bloom is absolutely magical."</p>
+          <div class="flex items-center gap-3">
+            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--lavender));display:flex;align-items:center;justify-content:center;font-size:1.2rem;">👩</div>
+            <div><p class="font-semibold text-sm">Ananya Iyer</p><p class="text-xs" style="color:var(--text-light);">Bangalore</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTAGRAM SECTION -->
+  <section class="py-20 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-10 reveal">
+        <div class="section-tag">@woolybloom</div>
+        <h2 class="font-display text-4xl font-bold mt-2">Follow Our World 📸</h2>
+        <p class="mt-3 text-sm" style="color:var(--text-light);">Tag us on Instagram with <strong>#WoolyBloom</strong> to be featured!</p>
+      </div>
+      <div class="insta-grid rounded-2xl overflow-hidden reveal">
+        <div class="insta-item" style="background:linear-gradient(135deg,#FFE4E4,#FFD4D4);">
+          <div style="width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:4rem;">🌸</div>
+          <div class="insta-overlay">♥ 342</div>
+        </div>
+        <div class="insta-item" style="background:linear-gradient(135deg,#FFF8D4,#FFEDD4);">
+          <div style="width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:4rem;">🌻</div>
+          <div class="insta-overlay">♥ 289</div>
+        </div>
+        <div class="insta-item" style="background:linear-gradient(135deg,#F0E8FF,#E8DCFF);">
+          <div style="width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:4rem;">💜</div>
+          <div class="insta-overlay">♥ 415</div>
+        </div>
+        <div class="insta-item" style="background:linear-gradient(135deg,#E4FFE8,#D4F0E0);">
+          <div style="width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:4rem;">🧸</div>
+          <div class="insta-overlay">♥ 521</div>
+        </div>
+        <div class="insta-item" style="background:linear-gradient(135deg,#FFE8F0,#FFD4E8);">
+          <div style="width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:4rem;">💕</div>
+          <div class="insta-overlay">♥ 378</div>
+        </div>
+        <div class="insta-item" style="background:linear-gradient(135deg,#E8F4FF,#D4E8FF);">
+          <div style="width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:4rem;">🎀</div>
+          <div class="insta-overlay">♥ 293</div>
+        </div>
+      </div>
+      <div class="text-center mt-8 reveal">
+        <a href="https://instagram.com" target="_blank" class="btn-primary" style="text-decoration:none;">📷 Follow @woolybloom</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section style="background:var(--beige);" class="py-20 px-4 sm:px-6">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-12 reveal">
+        <div class="section-tag">FAQ</div>
+        <h2 class="font-display text-4xl font-bold mt-2">Frequently Asked Questions</h2>
+      </div>
+      <div id="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">How long does a custom order take? <span class="faq-icon">+</span></button>
+          <div class="faq-answer">Custom orders typically take 3–7 business days depending on complexity. For urgent orders, we offer express processing — just mention it in your order notes!</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">Can I choose my own colors? <span class="faq-icon">+</span></button>
+          <div class="faq-answer">Absolutely! We offer a wide palette of yarn colors. You can select up to 3 colors per product, or send us a reference image and we'll match as closely as possible.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">Do you ship all over India? <span class="faq-icon">+</span></button>
+          <div class="faq-answer">Yes! We ship pan-India via trusted courier partners. Delivery takes 3–5 working days after dispatch. Expedited shipping is available at checkout.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">What payment methods do you accept? <span class="faq-icon">+</span></button>
+          <div class="faq-answer">We accept UPI (GPay, PhonePe, Paytm), net banking, credit/debit cards, and Cash on Delivery. For custom orders, we require a 50% advance payment.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">Can I get a gift message included? <span class="faq-icon">+</span></button>
+          <div class="faq-answer">Of course! Add your custom message during checkout or in the custom order form. We'll write it on a handmade card and include it in the gift box at no extra charge.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section style="background:linear-gradient(135deg,var(--blush),var(--lavender));padding:5rem 1rem;">
+    <div class="max-w-2xl mx-auto text-center reveal">
+      <div class="font-script text-3xl mb-2" style="color:white;">Stay in the loop</div>
+      <h2 class="font-display text-4xl font-bold mb-3" style="color:white;">Get Bloom Updates 🌸</h2>
+      <p class="mb-8 text-sm" style="color:rgba(255,255,255,0.85);">Subscribe for new arrivals, exclusive discounts, and crochet inspiration.</p>
+      <div class="newsletter-input">
+        <input type="email" id="newsletter-email" placeholder="Your email address">
+        <button onclick="subscribeNewsletter()">Subscribe ✨</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:var(--text-dark);color:white;padding:4rem 1rem 2rem;">
+    <div class="max-w-6xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+      <div>
+        <h3 class="font-script text-2xl mb-4" style="color:var(--blush);">🧶 Wooly Bloom</h3>
+        <p class="text-sm" style="color:rgba(255,255,255,0.6);line-height:1.8;">Handmade crochet gifts crafted with love and premium yarns. Every stitch is a labor of love.</p>
+        <div class="flex gap-4 mt-4">
+          <a href="#" style="color:rgba(255,255,255,0.6);" class="hover:text-white transition-colors">📷</a>
+          <a href="#" style="color:rgba(255,255,255,0.6);" class="hover:text-white transition-colors">💬</a>
+          <a href="#" style="color:rgba(255,255,255,0.6);" class="hover:text-white transition-colors">📘</a>
+          <a href="#" style="color:rgba(255,255,255,0.6);" class="hover:text-white transition-colors">🐦</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-4" style="color:var(--blush);">Quick Links</h4>
+        <ul class="space-y-2 text-sm" style="color:rgba(255,255,255,0.6);">
+          <li><button onclick="navigate('shop')" style="background:none;border:none;color:inherit;cursor:pointer;" class="hover:text-white transition-colors">Shop</button></li>
+          <li><button onclick="navigate('custom')" style="background:none;border:none;color:inherit;cursor:pointer;" class="hover:text-white transition-colors">Custom Orders</button></li>
+          <li><button onclick="navigate('gallery')" style="background:none;border:none;color:inherit;cursor:pointer;" class="hover:text-white transition-colors">Gallery</button></li>
+          <li><button onclick="navigate('about')" style="background:none;border:none;color:inherit;cursor:pointer;" class="hover:text-white transition-colors">About Us</button></li>
+          <li><button onclick="navigate('contact')" style="background:none;border:none;color:inherit;cursor:pointer;" class="hover:text-white transition-colors">Contact</button></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-4" style="color:var(--blush);">Collections</h4>
+        <ul class="space-y-2 text-sm" style="color:rgba(255,255,255,0.6);">
+          <li>💕 Crochet Hearts</li>
+          <li>🌻 Sunflower Bouquets</li>
+          <li>🔑 Keychains</li>
+          <li>🧸 Mini Plushies</li>
+          <li>🎁 Gift Hampers</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-4" style="color:var(--blush);">Contact Us</h4>
+        <ul class="space-y-2 text-sm" style="color:rgba(255,255,255,0.6);">
+          <li>📱 +91 99999 99999</li>
+          <li>📧 hello@woolybloom.in</li>
+          <li>📍 Mumbai, Maharashtra</li>
+          <li class="mt-4">
+            <button onclick="window.open('https://wa.me/919999999999','_blank')" class="btn-whatsapp" style="font-size:0.8rem;padding:0.6rem 1.25rem;">💬 Chat on WhatsApp</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:2rem;text-align:center;font-size:0.8rem;color:rgba(255,255,255,0.4);">
+      © 2025 Wooly Bloom. All rights reserved. Made with 🧶 & ❤️
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE: SHOP
+═══════════════════════════════════════════════════════════ -->
+<div id="page-shop" class="page" style="padding-top:64px;">
+  <div style="background:linear-gradient(135deg,#FFF5F5,#F5F0FF);padding:3rem 1rem 2rem;">
+    <div class="max-w-6xl mx-auto">
+      <h1 class="font-display text-5xl font-bold">Our Shop 🛍️</h1>
+      <p class="mt-2" style="color:var(--text-light);">Handmade with love. Crafted just for you.</p>
+    </div>
+  </div>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+    <!-- Search & Sort -->
+    <div class="flex flex-col sm:flex-row gap-4 mb-6">
+      <div class="search-bar flex-1">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-light)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="shop-search" placeholder="Search products..." oninput="filterProducts()">
+      </div>
+      <select id="shop-sort" class="form-input" style="max-width:200px;" onchange="filterProducts()">
+        <option value="default">Sort by: Default</option>
+        <option value="price-low">Price: Low to High</option>
+        <option value="price-high">Price: High to Low</option>
+        <option value="rating">Top Rated</option>
+        <option value="newest">Newest First</option>
+      </select>
+    </div>
+    <!-- Filters -->
+    <div class="flex flex-wrap gap-2 mb-8">
+      <button class="filter-chip active" onclick="setCategory('all',this)">All Products</button>
+      <button class="filter-chip" onclick="setCategory('hearts',this)">💕 Hearts</button>
+      <button class="filter-chip" onclick="setCategory('sunflower',this)">🌻 Sunflower</button>
+      <button class="filter-chip" onclick="setCategory('keychains',this)">🔑 Keychains</button>
+      <button class="filter-chip" onclick="setCategory('plushies',this)">🧸 Plushies</button>
+      <button class="filter-chip" onclick="setCategory('custom',this)">✨ Custom</button>
+      <button class="filter-chip" onclick="setCategory('hampers',this)">🎁 Hampers</button>
+    </div>
+    <!-- Grid -->
+    <div id="shop-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-10"></div>
+    <!-- Pagination -->
+    <div class="flex justify-center gap-2" id="pagination"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE: PRODUCT DETAIL
+═══════════════════════════════════════════════════════════ -->
+<div id="page-product" class="page" style="padding-top:64px;">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+    <button onclick="navigate('shop')" style="background:none;border:none;color:var(--text-light);cursor:pointer;font-size:0.9rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:0.5rem;">
+      ← Back to Shop
+    </button>
+    <div class="grid md:grid-cols-2 gap-12">
+      <div id="product-images">
+        <!-- Injected -->
+      </div>
+      <div id="product-info">
+        <!-- Injected -->
+      </div>
+    </div>
+    <div class="mt-16">
+      <h2 class="font-display text-3xl font-bold mb-8">You Might Also Love 💕</h2>
+      <div id="related-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE: CUSTOM ORDER
+═══════════════════════════════════════════════════════════ -->
+<div id="page-custom" class="page" style="padding-top:64px;">
+  <div style="background:linear-gradient(135deg,#FFF5F5,#F5F0FF);padding:3rem 1rem 2rem;">
+    <div class="max-w-6xl mx-auto text-center">
+      <div class="section-tag">✨ Custom Order</div>
+      <h1 class="font-display text-5xl font-bold mt-2">Make Your Own Bouquet</h1>
+      <p class="mt-3" style="color:var(--text-light);">Design the perfect gift — your colors, your style, your love.</p>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+    <div class="grid lg:grid-cols-2 gap-12">
+      <!-- FORM -->
+      <div style="background:white;border-radius:24px;padding:2.5rem;box-shadow:0 4px 20px rgba(139,107,74,0.08);">
+        <h2 class="font-display text-2xl font-bold mb-6">Order Details</h2>
+        <div class="space-y-5">
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="form-label">Your Name *</label>
+              <input type="text" id="co-name" class="form-input" placeholder="Priya Sharma" oninput="updatePreview()">
+            </div>
+            <div>
+              <label class="form-label">Mobile Number *</label>
+              <input type="tel" id="co-phone" class="form-input" placeholder="+91 99999 99999">
+            </div>
+          </div>
+          <div>
+            <label class="form-label">Email Address *</label>
+            <input type="email" id="co-email" class="form-input" placeholder="hello@email.com">
+          </div>
+          <div>
+            <label class="form-label">Product Type *</label>
+            <select id="co-product" class="form-input" onchange="updatePreview()">
+              <option value="">Select a product...</option>
+              <option value="Heart Bouquet">💕 Heart Bouquet</option>
+              <option value="Sunflower Bouquet">🌻 Sunflower Bouquet</option>
+              <option value="Mixed Bouquet">🌸 Mixed Bouquet</option>
+              <option value="Keychain">🔑 Custom Keychain</option>
+              <option value="Mini Plushie">🧸 Mini Plushie</option>
+              <option value="Gift Hamper">🎁 Gift Hamper</option>
+              <option value="Custom Design">✨ Fully Custom Design</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">Choose Colors</label>
+            <div class="flex flex-wrap gap-3 mt-1">
+              <div class="color-swatch active" style="background:#F7C5C5;" onclick="selectColor(this,'Pink')" title="Pink"></div>
+              <div class="color-swatch" style="background:#D8C8E8;" onclick="selectColor(this,'Lavender')" title="Lavender"></div>
+              <div class="color-swatch" style="background:#F5D878;" onclick="selectColor(this,'Yellow')" title="Sunflower Yellow"></div>
+              <div class="color-swatch" style="background:#B8D4B8;" onclick="selectColor(this,'Sage')" title="Sage Green"></div>
+              <div class="color-swatch" style="background:#FFC0CB;" onclick="selectColor(this,'Rose')" title="Rose"></div>
+              <div class="color-swatch" style="background:#FFE4C4;" onclick="selectColor(this,'Peach')" title="Peach"></div>
+              <div class="color-swatch" style="background:#E8E0F0;" onclick="selectColor(this,'Lilac')" title="Lilac"></div>
+              <div class="color-swatch" style="background:#FFFFFF;border:1.5px solid #ddd;" onclick="selectColor(this,'White')" title="White"></div>
+              <div class="color-swatch" style="background:#E8C8B0;" onclick="selectColor(this,'Cream')" title="Cream"></div>
+              <div class="color-swatch" style="background:#C8B0D8;" onclick="selectColor(this,'Purple')" title="Purple"></div>
+            </div>
+            <p id="selected-color-text" class="text-xs mt-2" style="color:var(--text-light);">Selected: Pink</p>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="form-label">Quantity *</label>
+              <div class="flex items-center gap-3">
+                <button class="qty-btn" onclick="changeQty(-1)">−</button>
+                <span id="co-qty" class="font-bold text-xl w-8 text-center" style="color:var(--text-dark);">1</span>
+                <button class="qty-btn" onclick="changeQty(1)">+</button>
+              </div>
+            </div>
+            <div>
+              <label class="form-label">Budget Range</label>
+              <select id="co-budget" class="form-input" onchange="updatePreview()">
+                <option>₹200 – ₹500</option>
+                <option>₹500 – ₹1000</option>
+                <option>₹1000 – ₹2000</option>
+                <option>₹2000+</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label class="form-label">Upload Inspiration Image</label>
+            <div style="border:2px dashed rgba(232,160,160,0.4);border-radius:12px;padding:1.5rem;text-align:center;cursor:pointer;" onclick="document.getElementById('co-img').click()">
+              <div style="font-size:2rem;margin-bottom:0.5rem;">📸</div>
+              <p class="text-sm" style="color:var(--text-light);">Click to upload reference image</p>
+              <input type="file" id="co-img" class="hidden" accept="image/*" onchange="updatePreview()">
+            </div>
+          </div>
+          <div>
+            <label class="form-label">Delivery Date</label>
+            <input type="date" id="co-date" class="form-input" oninput="updatePreview()">
+          </div>
+          <div>
+            <label class="form-label">Custom Message / Special Notes</label>
+            <textarea id="co-message" class="form-input" rows="3" placeholder="Write your message to include in the gift, or any special requirements..." oninput="updatePreview()" style="resize:vertical;"></textarea>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-3 pt-2">
+            <button class="btn-whatsapp flex-1 justify-center" onclick="submitViaWhatsApp()">💬 Order via WhatsApp</button>
+            <button class="btn-primary flex-1 justify-center" onclick="submitCustomOrder()">✨ Submit Order</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PREVIEW -->
+      <div class="space-y-6">
+        <div style="background:white;border-radius:24px;padding:2rem;box-shadow:0 4px 20px rgba(139,107,74,0.08);">
+          <h2 class="font-display text-2xl font-bold mb-4">Live Preview</h2>
+          <div class="preview-card" id="custom-preview">
+            <div style="font-size:5rem;margin-bottom:1rem;transition:all 0.3s;" id="preview-emoji">🌸</div>
+            <h3 class="font-display font-bold text-xl mb-1" id="preview-product" style="color:var(--rose);">Your Custom Bouquet</h3>
+            <p class="text-sm mb-3" id="preview-color" style="color:var(--text-light);">Color: Pink</p>
+            <div style="background:rgba(247,197,197,0.2);border-radius:12px;padding:0.75rem 1.5rem;display:inline-block;">
+              <span class="text-sm font-medium" id="preview-budget" style="color:var(--text-mid);">Budget: ₹200 – ₹500</span>
+            </div>
+            <p class="mt-3 text-xs" id="preview-message" style="color:var(--text-light);font-style:italic;"></p>
+            <p class="mt-2 text-xs" id="preview-customer" style="color:var(--text-light);"></p>
+          </div>
+        </div>
+
+        <!-- INFO BOX -->
+        <div style="background:linear-gradient(135deg,rgba(247,197,197,0.15),rgba(216,200,232,0.15));border-radius:24px;padding:2rem;border:1.5px solid rgba(232,160,160,0.2);">
+          <h3 class="font-display font-bold text-xl mb-4">✨ What You Get</h3>
+          <ul class="space-y-3 text-sm" style="color:var(--text-mid);">
+            <li class="flex items-start gap-2"><span style="color:var(--rose);">✓</span> 100% handmade with premium yarn</li>
+            <li class="flex items-start gap-2"><span style="color:var(--rose);">✓</span> Beautiful gift-ready packaging</li>
+            <li class="flex items-start gap-2"><span style="color:var(--rose);">✓</span> Handwritten personal message card</li>
+            <li class="flex items-start gap-2"><span style="color:var(--rose);">✓</span> Photo shared before dispatch for approval</li>
+            <li class="flex items-start gap-2"><span style="color:var(--rose);">✓</span> Pan-India delivery with tracking</li>
+            <li class="flex items-start gap-2"><span style="color:var(--rose);">✓</span> Direct WhatsApp support throughout</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE: GALLERY
+═══════════════════════════════════════════════════════════ -->
+<div id="page-gallery" class="page" style="padding-top:64px;">
+  <div style="background:linear-gradient(135deg,#FFF5F5,#F5F0FF);padding:3rem 1rem 2rem;">
+    <div class="max-w-6xl mx-auto text-center">
+      <div class="section-tag">Gallery</div>
+      <h1 class="font-display text-5xl font-bold mt-2">Our Crochet World 🌸</h1>
+      <p class="mt-3" style="color:var(--text-light);">Every piece tells a beautiful story.</p>
+    </div>
+  </div>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+    <!-- Category tabs -->
+    <div class="flex flex-wrap gap-2 justify-center mb-10">
+      <button class="filter-chip active" onclick="setGalleryTab('all',this)">All</button>
+      <button class="filter-chip" onclick="setGalleryTab('bouquets',this)">Bouquets</button>
+      <button class="filter-chip" onclick="setGalleryTab('keychains',this)">Keychains</button>
+      <button class="filter-chip" onclick="setGalleryTab('plushies',this)">Plushies</button>
+      <button class="filter-chip" onclick="setGalleryTab('gifts',this)">Gift Sets</button>
+    </div>
+    <!-- Masonry gallery -->
+    <div class="masonry" id="gallery-masonry"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE: ABOUT
+═══════════════════════════════════════════════════════════ -->
+<div id="page-about" class="page" style="padding-top:64px;">
+  <div style="background:linear-gradient(135deg,#FFF5F5,#F5F0FF);padding:4rem 1rem;">
+    <div class="max-w-6xl mx-auto text-center">
+      <div class="section-tag">About Us</div>
+      <h1 class="font-display text-5xl font-bold mt-2">Our Story 💕</h1>
+      <p class="mt-4 max-w-2xl mx-auto" style="color:var(--text-light);line-height:1.8;">
+        Wooly Bloom began in a small studio in Mumbai, where one woman's love for crochet grew into a brand that brings joy to thousands.
+      </p>
+    </div>
+  </div>
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16 space-y-20">
+    <!-- Brand Story -->
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div style="background:linear-gradient(135deg,rgba(247,197,197,0.2),rgba(216,200,232,0.2));border-radius:40px;padding:3rem;text-align:center;">
+        <div style="font-size:7rem;line-height:1;margin-bottom:1rem;">👩‍🎨</div>
+        <p class="font-script text-2xl" style="color:var(--rose);">Sneha – Founder & Artist</p>
+      </div>
+      <div>
+        <div class="section-tag">The Artist</div>
+        <h2 class="font-display text-3xl font-bold mt-2 mb-4">Meet the Maker</h2>
+        <p style="color:var(--text-light);line-height:1.9;" class="mb-4">Hi! I'm Sneha, the heart and hands behind Wooly Bloom. I started crocheting at 16 when my grandmother taught me my first stitch. What began as a rainy-day hobby quickly became my passion — and eventually my purpose.</p>
+        <p style="color:var(--text-light);line-height:1.9;" class="mb-4">In 2021, I started gifting custom bouquets to friends and the response was overwhelming. People were moved by receiving something so carefully handmade — something that would never wilt.</p>
+        <p style="color:var(--text-light);line-height:1.9;">Today, Wooly Bloom ships hundreds of handmade pieces across India every month, and I still make every single one myself — stitch by stitch, with love.</p>
+      </div>
+    </div>
+
+    <!-- Mission & Vision -->
+    <div class="grid md:grid-cols-2 gap-6">
+      <div style="background:linear-gradient(135deg,rgba(247,197,197,0.15),rgba(247,197,197,0.05));border-radius:24px;padding:2.5rem;border:1.5px solid rgba(232,160,160,0.2);">
+        <div style="font-size:2.5rem;margin-bottom:1rem;">🎯</div>
+        <h3 class="font-display text-2xl font-bold mb-3">Our Mission</h3>
+        <p style="color:var(--text-light);line-height:1.8;">To make the world warmer, one stitch at a time. We believe handmade gifts carry an energy no mass-produced product ever can — the time, care, and love woven into every piece.</p>
+      </div>
+      <div style="background:linear-gradient(135deg,rgba(216,200,232,0.15),rgba(216,200,232,0.05));border-radius:24px;padding:2.5rem;border:1.5px solid rgba(196,168,216,0.2);">
+        <div style="font-size:2.5rem;margin-bottom:1rem;">🌟</div>
+        <h3 class="font-display text-2xl font-bold mb-3">Our Vision</h3>
+        <p style="color:var(--text-light);line-height:1.8;">To become India's most loved handmade gifting brand — where every celebration is made more beautiful by a piece of Wooly Bloom art.</p>
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div>
+      <div class="section-tag">Journey</div>
+      <h2 class="font-display text-3xl font-bold mt-2 mb-10">Our Bloom Story</h2>
+      <div class="space-y-8">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div style="background:white;border-radius:20px;padding:1.5rem;box-shadow:0 4px 20px rgba(139,107,74,0.08);">
+            <span class="text-xs font-bold" style="color:var(--rose);">2016</span>
+            <h3 class="font-display font-bold text-lg">The First Stitch</h3>
+            <p class="text-sm mt-1" style="color:var(--text-light);">Sneha learns crochet from her grandmother during summer holidays in Nashik.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div style="background:white;border-radius:20px;padding:1.5rem;box-shadow:0 4px 20px rgba(139,107,74,0.08);">
+            <span class="text-xs font-bold" style="color:var(--rose);">2021</span>
+            <h3 class="font-display font-bold text-lg">First Custom Orders</h3>
+            <p class="text-sm mt-1" style="color:var(--text-light);">Word-of-mouth orders begin flooding in from Instagram and WhatsApp. Wooly Bloom is born.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div style="background:white;border-radius:20px;padding:1.5rem;box-shadow:0 4px 20px rgba(139,107,74,0.08);">
+            <span class="text-xs font-bold" style="color:var(--rose);">2023</span>
+            <h3 class="font-display font-bold text-lg">100th Order Milestone</h3>
+            <p class="text-sm mt-1" style="color:var(--text-light);">Completed our 100th custom order and launched our official online store.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div style="background:white;border-radius:20px;padding:1.5rem;box-shadow:0 4px 20px rgba(139,107,74,0.08);">
+            <span class="text-xs font-bold" style="color:var(--rose);">2025</span>
+            <h3 class="font-display font-bold text-lg">500+ Happy Customers</h3>
+            <p class="text-sm mt-1" style="color:var(--text-light);">Shipping pan-India with a 4.9★ average rating. Growing every single day.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div style="background:linear-gradient(135deg,var(--blush),var(--lavender));border-radius:32px;padding:3rem;">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
+        <div>
+          <div class="counter-num" data-target="500" style="-webkit-text-fill-color:white;background:none;color:white;">500+</div>
+          <p class="text-sm" style="color:rgba(255,255,255,0.85);">Happy Customers</p>
+        </div>
+        <div>
+          <div class="counter-num" data-target="1200" style="-webkit-text-fill-color:white;background:none;color:white;">1200+</div>
+          <p class="text-sm" style="color:rgba(255,255,255,0.85);">Products Made</p>
+        </div>
+        <div>
+          <div class="counter-num" style="-webkit-text-fill-color:white;background:none;color:white;">4.9 ★</div>
+          <p class="text-sm" style="color:rgba(255,255,255,0.85);">Average Rating</p>
+        </div>
+        <div>
+          <div class="counter-num" style="-webkit-text-fill-color:white;background:none;color:white;">100%</div>
+          <p class="text-sm" style="color:rgba(255,255,255,0.85);">Handmade</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Handmade Process -->
+    <div>
+      <div class="section-tag">Process</div>
+      <h2 class="font-display text-3xl font-bold mt-2 mb-8">The Handmade Process</h2>
+      <div class="grid sm:grid-cols-3 gap-6">
+        <div style="text-align:center;padding:2rem;">
+          <div style="font-size:3.5rem;margin-bottom:1rem;">🧵</div>
+          <h3 class="font-display font-bold text-xl mb-2">Premium Yarn</h3>
+          <p class="text-sm" style="color:var(--text-light);">We source only soft, colorfast, durable yarn for all our pieces.</p>
+        </div>
+        <div style="text-align:center;padding:2rem;">
+          <div style="font-size:3.5rem;margin-bottom:1rem;">🧶</div>
+          <h3 class="font-display font-bold text-xl mb-2">Hand Crocheted</h3>
+          <p class="text-sm" style="color:var(--text-light);">Every single stitch is made by hand. Zero machines, all love.</p>
+        </div>
+        <div style="text-align:center;padding:2rem;">
+          <div style="font-size:3.5rem;margin-bottom:1rem;">🎀</div>
+          <h3 class="font-display font-bold text-xl mb-2">Gift Packaged</h3>
+          <p class="text-sm" style="color:var(--text-light);">Wrapped beautifully, ready to be gifted straight from the box.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE: CART
+═══════════════════════════════════════════════════════════ -->
+<div id="page-cart" class="page" style="padding-top:64px;">
+  <div style="background:linear-gradient(135deg,#FFF5F5,#F5F0FF);padding:3rem 1rem 2rem;">
+    <div class="max-w-6xl mx-auto">
+      <h1 class="font-display text-5xl font-bold">Your Cart 🛍️</h1>
+    </div>
+  </div>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+    <div class="grid lg:grid-cols-3 gap-8">
+      <div class="lg:col-span-2" id="cart-items-list"></div>
+      <div id="cart-summary" style="height:fit-content;position:sticky;top:80px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE: WISHLIST
+═══════════════════════════════════════════════════════════ -->
+<div id="page-wishlist" class="page" style="padding-top:64px;">
+  <div style="background:linear-gradient(135deg,#FFF5F5,#F5F0FF);padding:3rem 1rem 2rem;">
+    <div class="max-w-6xl mx-auto">
+      <h1 class="font-display text-5xl font-bold">Wishlist 💕</h1>
+    </div>
+  </div>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+    <div id="wishlist-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE: CHECKOUT
+═══════════════════════════════════════════════════════════ -->
+<div id="page-checkout" class="page" style="padding-top:64px;">
+  <div style="background:linear-gradient(135deg,#FFF5F5,#F5F0FF);padding:3rem 1rem 2rem;">
+    <div class="max-w-6xl mx-auto">
+      <h1 class="font-display text-5xl font-bold">Checkout 💳</h1>
+    </div>
+  </div>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+    <div class="grid lg:grid-cols-2 gap-10">
+      <!-- Billing -->
+      <div>
+        <div style="background:white;border-radius:24px;padding:2rem;box-shadow:0 4px 20px rgba(139,107,74,0.08);margin-bottom:1.5rem;">
+          <h2 class="font-display text-2xl font-bold mb-6">Billing Details</h2>
+          <div class="space-y-4">
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div><label class="form-label">First Name</label><input type="text" class="form-input" placeholder="Priya"></div>
+              <div><label class="form-label">Last Name</label><input type="text" class="form-input" placeholder="Sharma"></div>
+            </div>
+            <div><label class="form-label">Email</label><input type="email" class="form-input" placeholder="priya@email.com"></div>
+            <div><label class="form-label">Phone</label><input type="tel" class="form-input" placeholder="+91 99999 99999"></div>
+            <div><label class="form-label">Address</label><input type="text" class="form-input" placeholder="Street address"></div>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div><label class="form-label">City</label><input type="text" class="form-input" placeholder="Mumbai"></div>
+              <div><label class="form-label">Pincode</label><input type="text" class="form-input" placeholder="400001"></div>
+            </div>
+            <div><label class="form-label">State</label>
+              <select class="form-input">
+                <option>Maharashtra</option><option>Gujarat</option><option>Karnataka</option><option>Tamil Nadu</option><option>Delhi</option><option>West Bengal</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment -->
+        <div style="background:white;border-radius:24px;padding:2rem;box-shadow:0 4px 20px rgba(139,107,74,0.08);">
+          <h2 class="font-display text-2xl font-bold mb-6">Payment Method</h2>
+          <div class="space-y-3">
+            <div class="payment-option active" onclick="selectPayment(this)">
+              <span style="font-size:1.5rem;">📱</span>
+              <div><p class="font-semibold text-sm">UPI (GPay / PhonePe / Paytm)</p><p class="text-xs" style="color:var(--text-light);">Instant transfer via UPI</p></div>
+            </div>
+            <div class="payment-option" onclick="selectPayment(this)">
+              <span style="font-size:1.5rem;">💳</span>
+              <div><p class="font-semibold text-sm">Credit / Debit Card</p><p class="text-xs" style="color:var(--text-light);">Visa, Mastercard, RuPay accepted</p></div>
+            </div>
+            <div class="payment-option" onclick="selectPayment(this)">
+              <span style="font-size:1.5rem;">🏦</span>
+              <div><p class="font-semibold text-sm">Net Banking</p><p class="text-xs" style="color:var(--text-light);">All major banks supported</p></div>
+            </div>
+            <div class="payment-option" onclick="selectPayment(this)">
+              <span style="font-size:1.5rem;">💵</span>
+              <div><p class="font-semibold text-sm">Cash on Delivery</p><p class="text-xs" style="color:var(--text-light);">Pay when you receive your order</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div id="checkout-summary" style="height:fit-content;position:sticky;top:80px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE: CONTACT
+═══════════════════════════════════════════════════════════ -->
+<div id="page-contact" class="page" style="padding-top:64px;">
+  <div style="background:linear-gradient(135deg,#FFF5F5,#F5F0FF);padding:3rem 1rem 2rem;">
+    <div class="max-w-6xl mx-auto text-center">
+      <div class="section-tag">Get in Touch</div>
+      <h1 class="font-display text-5xl font-bold mt-2">Contact Us 💌</h1>
+      <p class="mt-3" style="color:var(--text-light);">We'd love to hear from you!</p>
+    </div>
+  </div>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-12">
+    <div class="grid lg:grid-cols-2 gap-10">
+      <!-- Form -->
+      <div style="background:white;border-radius:24px;padding:2.5rem;box-shadow:0 4px 20px rgba(139,107,74,0.08);">
+        <h2 class="font-display text-2xl font-bold mb-6">Send a Message</h2>
+        <div class="space-y-4">
+          <div><label class="form-label">Your Name</label><input type="text" class="form-input" placeholder="Priya Sharma"></div>
+          <div><label class="form-label">Email</label><input type="email" class="form-input" placeholder="priya@email.com"></div>
+          <div><label class="form-label">Subject</label><input type="text" class="form-input" placeholder="Custom Order Inquiry"></div>
+          <div><label class="form-label">Message</label><textarea class="form-input" rows="5" placeholder="Tell us how we can help..." style="resize:vertical;"></textarea></div>
+          <button class="btn-primary w-full justify-center" onclick="submitContactForm()">Send Message 💌</button>
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div class="space-y-6">
+        <div style="background:white;border-radius:24px;padding:2rem;box-shadow:0 4px 20px rgba(139,107,74,0.08);">
+          <h2 class="font-display text-2xl font-bold mb-4">Get in Touch</h2>
+          <ul class="space-y-4">
+            <li class="flex items-center gap-3">
+              <span style="font-size:1.5rem;">📱</span>
+              <div><p class="font-semibold text-sm">Phone / WhatsApp</p><p class="text-sm" style="color:var(--text-light);">+91 99999 99999</p></div>
+            </li>
+            <li class="flex items-center gap-3">
+              <span style="font-size:1.5rem;">📧</span>
+              <div><p class="font-semibold text-sm">Email</p><p class="text-sm" style="color:var(--text-light);">hello@woolybloom.in</p></div>
+            </li>
+            <li class="flex items-center gap-3">
+              <span style="font-size:1.5rem;">📷</span>
+              <div><p class="font-semibold text-sm">Instagram</p><p class="text-sm" style="color:var(--text-light);">@woolybloom</p></div>
+            </li>
+            <li class="flex items-center gap-3">
+              <span style="font-size:1.5rem;">📍</span>
+              <div><p class="font-semibold text-sm">Location</p><p class="text-sm" style="color:var(--text-light);">Mumbai, Maharashtra, India</p></div>
+            </li>
+          </ul>
+          <div class="mt-6">
+            <button class="btn-whatsapp w-full justify-center" onclick="window.open('https://wa.me/919999999999','_blank')">💬 Chat on WhatsApp</button>
+          </div>
+        </div>
+
+        <!-- Map placeholder -->
+        <div style="background:linear-gradient(135deg,rgba(247,197,197,0.2),rgba(216,200,232,0.2));border-radius:24px;height:200px;display:flex;align-items:center;justify-content:center;border:1.5px dashed rgba(232,160,160,0.3);">
+          <div class="text-center">
+            <div style="font-size:2.5rem;">📍</div>
+            <p class="font-medium mt-2" style="color:var(--text-light);">Mumbai, Maharashtra</p>
+          </div>
+        </div>
+
+        <!-- Hours -->
+        <div style="background:white;border-radius:24px;padding:1.5rem;box-shadow:0 4px 20px rgba(139,107,74,0.08);">
+          <h3 class="font-display font-bold text-lg mb-3">Response Hours</h3>
+          <div class="space-y-2 text-sm" style="color:var(--text-light);">
+            <div class="flex justify-between"><span>Mon – Sat</span><span class="font-medium" style="color:var(--text-dark);">10:00 AM – 8:00 PM</span></div>
+            <div class="flex justify-between"><span>Sunday</span><span class="font-medium" style="color:var(--text-dark);">12:00 PM – 6:00 PM</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="mt-12">
+      <div class="text-center mb-8">
+        <div class="section-tag">FAQ</div>
+        <h2 class="font-display text-3xl font-bold mt-2">Quick Answers</h2>
+      </div>
+      <div>
+        <div class="faq-item"><button class="faq-question" onclick="toggleFAQ(this)">How do I place a custom order? <span class="faq-icon">+</span></button><div class="faq-answer">Fill out our Custom Order form or message us directly on WhatsApp. We'll confirm your order and send a preview before crafting.</div></div>
+        <div class="faq-item"><button class="faq-question" onclick="toggleFAQ(this)">Can I return or exchange a product? <span class="faq-icon">+</span></button><div class="faq-answer">Since all items are handmade to order, we don't accept returns unless the product is damaged. We ensure quality with photos before dispatch.</div></div>
+        <div class="faq-item"><button class="faq-question" onclick="toggleFAQ(this)">Do you make bulk orders for events? <span class="faq-icon">+</span></button><div class="faq-answer">Yes! We love bulk orders for weddings, baby showers, and corporate gifting. Contact us at least 2 weeks in advance for large orders.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT MODAL -->
+<div id="modal" onclick="closeModal(event)">
+  <div id="modal-box" onclick="event.stopPropagation()">
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+// DATA
+// ══════════════════════════════════════════
+const products = [
+  { id:1, name:'Heart Bouquet', emoji:'💕', category:'hearts', price:349, rating:5, reviews:128, colors:['#F7C5C5','#D8C8E8','#F5D878'], description:'A stunning bouquet of handcrafted crochet hearts in premium yarn. Perfect for birthdays, anniversaries, and Valentine\'s Day.', badge:'Best Seller' },
+  { id:2, name:'Sunflower Bouquet', emoji:'🌻', category:'sunflower', price:449, rating:5, reviews:97, colors:['#F5D878','#E8C040','#B8D4B8'], description:'A cheerful bouquet of hand-crocheted sunflowers — bright, warm, and eternally beautiful.', badge:'Trending' },
+  { id:3, name:'Mini Bunny Plushie', emoji:'🐰', category:'plushies', price:279, rating:5, reviews:84, colors:['#F7C5C5','#FFFFFF','#D8C8E8'], description:'The most adorable little bunny, entirely handmade. A perfect companion or gift for all ages.', badge:'Cute!' },
+  { id:4, name:'Heart Keychain', emoji:'💗', category:'keychains', price:149, rating:4.8, reviews:203, colors:['#F7C5C5','#D8C8E8','#F5D878','#B8D4B8'], description:'Carry your love everywhere with our hand-crocheted heart keychain in your favorite color.', badge:'Popular' },
+  { id:5, name:'Mixed Floral Bouquet', emoji:'🌸', category:'hearts', price:549, rating:5, reviews:62, colors:['#F7C5C5','#D8C8E8','#F5D878'], description:'A beautiful mix of crochet roses, daisies, and hearts. The ultimate romantic bouquet.', badge:'Premium' },
+  { id:6, name:'Avocado Keychain', emoji:'🥑', category:'keychains', price:179, rating:4.9, reviews:156, colors:['#B8D4B8','#F5D878'], description:'An adorably cute avocado keychain crocheted with premium green yarn. A conversation starter!', badge:'Trendy' },
+  { id:7, name:'Gift Hamper – Bloom', emoji:'🎁', category:'hampers', price:899, rating:5, reviews:45, colors:['#F7C5C5','#D8C8E8'], description:'A curated gift hamper with a heart bouquet, two keychains, and a mini plushie — beautifully packaged.', badge:'Gift Ready' },
+  { id:8, name:'Mini Bear Plushie', emoji:'🐻', category:'plushies', price:299, rating:4.9, reviews:71, colors:['#E8C8B0','#F7C5C5','#D8C8E8'], description:'A tiny, huggable crochet bear made with ultra-soft premium yarn. The perfect cuddle buddy.', badge:null },
+  { id:9, name:'Star Keychain', emoji:'⭐', category:'keychains', price:139, rating:4.7, reviews:119, colors:['#F5D878','#E8C040','#F7C5C5'], description:'A charming crocheted star keychain — spread a little magic wherever you go!', badge:null },
+  { id:10, name:'Custom Bouquet', emoji:'✨', category:'custom', price:599, rating:5, reviews:38, colors:[], description:'Fully customized crochet bouquet — your choice of flowers, colors, sizes, and personalized message.', badge:'Custom' },
+  { id:11, name:'Lavender Bouquet', emoji:'💜', category:'sunflower', price:399, rating:4.9, reviews:53, colors:['#D8C8E8','#C4A8D8','#F7C5C5'], description:'A romantic lavender-toned crochet bouquet — ethereal, elegant, and timeless.', badge:null },
+  { id:12, name:'Premium Gift Hamper', emoji:'🎀', category:'hampers', price:1199, rating:5, reviews:29, colors:['#F7C5C5','#D8C8E8','#F5D878'], description:'Our most luxurious gift set — a sunflower bouquet, three keychains, one plushie, and a greeting card.', badge:'Luxury' },
+];
+
+const galleryItems = [
+  { emoji:'🌸', category:'bouquets', color:'#FFE4E4', height:'220px', label:'Rose Bouquet' },
+  { emoji:'🌻', category:'bouquets', color:'#FFF8D4', height:'180px', label:'Sunflower Set' },
+  { emoji:'🔑', category:'keychains', color:'#F0E8FF', height:'200px', label:'Heart Keychain' },
+  { emoji:'🧸', category:'plushies', color:'#E4FFE8', height:'240px', label:'Bear Plushie' },
+  { emoji:'💕', category:'gifts', color:'#FFE8F0', height:'180px', label:'Gift Hamper' },
+  { emoji:'🌷', category:'bouquets', color:'#FFE4E4', height:'200px', label:'Mixed Blooms' },
+  { emoji:'🐰', category:'plushies', color:'#F0E8FF', height:'220px', label:'Bunny Plushie' },
+  { emoji:'⭐', category:'keychains', color:'#FFF8D4', height:'180px', label:'Star Keychain' },
+  { emoji:'🎁', category:'gifts', color:'#E4FFE8', height:'200px', label:'Birthday Set' },
+  { emoji:'💜', category:'bouquets', color:'#EEE4FF', height:'240px', label:'Lavender Bouquet' },
+  { emoji:'🥑', category:'keychains', color:'#E4F4E8', height:'180px', label:'Avocado Key' },
+  { emoji:'🎀', category:'gifts', color:'#FFE8F4', height:'200px', label:'Deluxe Hamper' },
+];
+
+// ══════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════
+let cart = JSON.parse(localStorage.getItem('wb_cart') || '[]');
+let wishlist = JSON.parse(localStorage.getItem('wb_wishlist') || '[]');
+let currentCategory = 'all';
+let currentPage = 1;
+const perPage = 8;
+let carouselIndex = 0;
+let customQty = 1;
+let selectedColors = ['Pink'];
+let currentProductId = null;
+let couponApplied = false;
+
+// ══════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════
+function navigate(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  const navEl = document.getElementById('nav-' + page);
+  if(navEl) navEl.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+  updateBadges();
+  if(page === 'shop') renderShop();
+  if(page === 'cart') renderCart();
+  if(page === 'wishlist') renderWishlist();
+  if(page === 'checkout') renderCheckoutSummary();
+  if(page === 'gallery') renderGallery();
+  initReveal();
+}
+
+function navigateToShopCategory(cat) {
+  currentCategory = cat;
+  navigate('shop');
+  setTimeout(() => {
+    document.querySelectorAll('.filter-chip').forEach(c => {
+      c.classList.toggle('active', c.textContent.toLowerCase().includes(cat) || (cat==='all'&&c.textContent.includes('All')));
+    });
+    filterProducts();
+  }, 100);
+}
+
+// ══════════════════════════════════════════
+// MOBILE MENU
+// ══════════════════════════════════════════
+function openMobileMenu() {
+  document.getElementById('mobile-menu').classList.add('open');
+  document.getElementById('menu-overlay').classList.add('open');
+}
+function closeMobileMenu() {
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('menu-overlay').classList.remove('open');
+}
+
+// ══════════════════════════════════════════
+// SCROLL REVEAL
+// ══════════════════════════════════════════
+function initReveal() {
+  setTimeout(() => {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => obs.observe(el));
+  }, 100);
+}
+
+// ══════════════════════════════════════════
+// LOADER
+// ══════════════════════════════════════════
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+    initReveal();
+    renderCarousel();
+    renderBestsellers();
+  }, 1200);
+});
+
+// ══════════════════════════════════════════
+// NAVBAR SCROLL
+// ══════════════════════════════════════════
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+  document.getElementById('back-top').classList.toggle('show', window.scrollY > 400);
+});
+
+// ══════════════════════════════════════════
+// PRODUCT CARD RENDER
+// ══════════════════════════════════════════
+function renderProductCard(p, small=false) {
+  const inWish = wishlist.includes(p.id);
+  const inCart = cart.some(c => c.id === p.id);
+  const stars = '★'.repeat(Math.floor(p.rating)) + (p.rating%1 ? '½' : '');
+  return `
+  <div class="product-card" onclick="openProduct(${p.id})">
+    <div class="card-img" style="background:linear-gradient(135deg,${p.colors[0]||'#F7C5C5'}33,${(p.colors[1]||p.colors[0]||'#D8C8E8')}33);">
+      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:${small?'3.5':'4.5'}rem;">${p.emoji}</div>
+      ${p.badge?`<div style="position:absolute;top:12px;left:12px;background:linear-gradient(135deg,var(--rose),var(--lilac));color:white;font-size:0.7rem;font-weight:700;padding:0.25rem 0.75rem;border-radius:20px;letter-spacing:0.05em;">${p.badge}</div>`:''}
+      <button class="wishlist-btn ${inWish?'active':''}" onclick="event.stopPropagation();toggleWishlist(${p.id},this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="${inWish?'var(--rose)':'none'}" stroke="${inWish?'var(--rose)':'var(--text-light)'}" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+    </div>
+    <div style="padding:1rem;">
+      <h3 class="font-display font-bold text-base">${p.name}</h3>
+      <div class="flex items-center gap-1 mt-1">
+        <span class="stars" style="font-size:0.75rem;">${'★'.repeat(Math.floor(p.rating))}</span>
+        <span style="font-size:0.75rem;color:var(--text-light);">(${p.reviews})</span>
+      </div>
+      <div class="flex items-center justify-between mt-3">
+        <span class="font-display font-bold text-lg" style="color:var(--rose);">₹${p.price}</span>
+        <button onclick="event.stopPropagation();addToCart(${p.id})" style="background:${inCart?'var(--rose)':'linear-gradient(135deg,var(--rose),var(--lilac))'};color:white;border:none;border-radius:50px;padding:0.4rem 1rem;font-size:0.75rem;font-weight:600;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform=''">
+          ${inCart?'✓ Added':'Add to Cart'}
+        </button>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ══════════════════════════════════════════
+// CAROUSEL (TRENDING)
+// ══════════════════════════════════════════
+function renderCarousel() {
+  const track = document.getElementById('carousel');
+  if(!track) return;
+  track.innerHTML = products.slice(0,6).map(p => `
+    <div style="min-width:260px;flex-shrink:0;">${renderProductCard(p)}</div>
+  `).join('');
+}
+function carouselNext() {
+  carouselIndex = Math.min(carouselIndex+1, products.slice(0,6).length-2);
+  document.getElementById('carousel').style.transform=`translateX(-${carouselIndex*276}px)`;
+}
+function carouselPrev() {
+  carouselIndex = Math.max(carouselIndex-1, 0);
+  document.getElementById('carousel').style.transform=`translateX(-${carouselIndex*276}px)`;
+}
+
+// ══════════════════════════════════════════
+// BESTSELLERS
+// ══════════════════════════════════════════
+function renderBestsellers() {
+  const g = document.getElementById('bestseller-grid');
+  if(!g) return;
+  const top = products.filter(p => p.badge==='Best Seller'||p.badge==='Trending'||p.badge==='Popular'||p.badge==='Premium').slice(0,4);
+  g.innerHTML = top.map(p => renderProductCard(p)).join('');
+}
+
+// ══════════════════════════════════════════
+// SHOP
+// ══════════════════════════════════════════
+function filterProducts() {
+  currentPage = 1;
+  renderShop();
+}
+function setCategory(cat, el) {
+  currentCategory = cat;
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  filterProducts();
+}
+function renderShop() {
+  const search = (document.getElementById('shop-search')||{}).value?.toLowerCase()||'';
+  const sort = (document.getElementById('shop-sort')||{}).value||'default';
+  let filtered = products.filter(p => {
+    const matchCat = currentCategory==='all' || p.category===currentCategory;
+    const matchSearch = p.name.toLowerCase().includes(search) || p.description.toLowerCase().includes(search);
+    return matchCat && matchSearch;
+  });
+  if(sort==='price-low') filtered.sort((a,b)=>a.price-b.price);
+  if(sort==='price-high') filtered.sort((a,b)=>b.price-a.price);
+  if(sort==='rating') filtered.sort((a,b)=>b.rating-a.rating);
+  const start=(currentPage-1)*perPage, end=start+perPage;
+  const paged = filtered.slice(start,end);
+  const g = document.getElementById('shop-grid');
+  if(g) g.innerHTML = paged.length ? paged.map(p=>renderProductCard(p)).join('') : '<div class="col-span-4 text-center py-16" style="color:var(--text-light);"><div style="font-size:4rem;">🔍</div><p class="mt-4 font-display text-xl">No products found</p></div>';
+  const totalPages = Math.ceil(filtered.length/perPage);
+  const pg = document.getElementById('pagination');
+  if(pg) {
+    pg.innerHTML = '';
+    for(let i=1;i<=totalPages;i++) {
+      const btn = document.createElement('button');
+      btn.textContent = i;
+      btn.className = 'w-9 h-9 rounded-full text-sm font-semibold transition-all';
+      btn.style.cssText = i===currentPage ? 'background:var(--rose);color:white;border:none;cursor:pointer;' : 'background:white;color:var(--text-mid);border:1.5px solid rgba(232,160,160,0.3);cursor:pointer;';
+      btn.onclick = () => { currentPage=i; renderShop(); };
+      pg.appendChild(btn);
+    }
+  }
+}
+
+// ══════════════════════════════════════════
+// PRODUCT DETAIL
+// ══════════════════════════════════════════
+function openProduct(id) {
+  currentProductId = id;
+  navigate('product');
+  const p = products.find(x=>x.id===id);
+  if(!p) return;
+  const inWish = wishlist.includes(p.id);
+  const inCart = cart.some(c=>c.id===p.id);
+
+  document.getElementById('product-images').innerHTML = `
+    <div style="background:linear-gradient(135deg,${p.colors[0]||'#F7C5C5'}33,${(p.colors[1]||p.colors[0]||'#D8C8E8')}33);border-radius:32px;padding:4rem;text-align:center;min-height:380px;display:flex;align-items:center;justify-content:center;position:relative;">
+      <div style="font-size:10rem;line-height:1;transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform=''">${p.emoji}</div>
+      ${p.badge?`<div style="position:absolute;top:20px;left:20px;background:linear-gradient(135deg,var(--rose),var(--lilac));color:white;font-size:0.75rem;font-weight:700;padding:0.35rem 1rem;border-radius:20px;">${p.badge}</div>`:''}
+    </div>
+    <div class="flex gap-3 mt-4">
+      ${p.colors.slice(0,4).map(c=>`<div style="width:48px;height:48px;border-radius:12px;background:${c}22;border:2px solid ${c};display:flex;align-items:center;justify-content:center;font-size:1.5rem;cursor:pointer;">${p.emoji}</div>`).join('')}
+    </div>
+  `;
+
+  document.getElementById('product-info').innerHTML = `
+    <div class="section-tag">${p.category==='hearts'?'💕 Hearts':p.category==='sunflower'?'🌻 Sunflower':p.category.charAt(0).toUpperCase()+p.category.slice(1)}</div>
+    <h1 class="font-display text-4xl font-bold mt-2 mb-3">${p.name}</h1>
+    <div class="flex items-center gap-3 mb-4">
+      <span class="stars">★★★★★</span>
+      <span style="font-size:0.9rem;color:var(--text-light);">${p.rating} (${p.reviews} reviews)</span>
+    </div>
+    <p class="mb-6" style="color:var(--text-light);line-height:1.8;">${p.description}</p>
+    <div class="text-3xl font-display font-bold mb-6" style="color:var(--rose);">₹${p.price}</div>
+
+    ${p.colors.length ? `<div class="mb-5">
+      <p class="form-label">Choose Color</p>
+      <div class="flex gap-2 mt-1">
+        ${p.colors.map((c,i)=>`<div class="color-swatch ${i===0?'active':''}" style="background:${c};" onclick="document.querySelectorAll('.pd-color-swatch').forEach(s=>s.classList.remove('active'));this.classList.add('active')" class="pd-color-swatch"></div>`).join('')}
+      </div>
+    </div>`:''}
+
+    <div class="mb-6">
+      <p class="form-label">Quantity</p>
+      <div class="flex items-center gap-3 mt-2">
+        <button class="qty-btn" onclick="pdQty(-1)">−</button>
+        <span id="pd-qty" class="font-bold text-xl w-10 text-center" style="color:var(--text-dark);">1</span>
+        <button class="qty-btn" onclick="pdQty(1)">+</button>
+      </div>
+    </div>
+
+    <div class="mb-5">
+      <p class="form-label">Personalized Message</p>
+      <input type="text" id="pd-msg" class="form-input mt-1" placeholder="Happy Birthday Priya! 🎉">
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-3">
+      <button class="btn-primary flex-1 justify-center" onclick="addToCart(${p.id})">
+        🛍️ ${inCart?'Added to Cart':'Add to Cart'}
+      </button>
+      <button class="btn-outline flex-1 justify-center" onclick="addToCart(${p.id});navigate('checkout')">
+        Buy Now →
+      </button>
+      <button onclick="toggleWishlist(${p.id},this)" style="width:48px;height:48px;border-radius:50%;border:1.5px solid rgba(232,160,160,0.4);background:white;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;" onmouseover="this.style.background='rgba(247,197,197,0.2)'" onmouseout="this.style.background='white'">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="${inWish?'var(--rose)':'none'}" stroke="var(--rose)" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+    </div>
+
+    <div class="mt-6 p-4 rounded-2xl" style="background:rgba(247,197,197,0.1);border:1px solid rgba(232,160,160,0.2);">
+      <div class="flex gap-4 text-sm" style="color:var(--text-light);">
+        <span>🚚 Free shipping above ₹599</span>
+        <span>🎁 Gift-ready packaging</span>
+      </div>
+    </div>
+  `;
+
+  // Related
+  const related = products.filter(x=>x.category===p.category && x.id!==p.id).slice(0,4);
+  const rg = document.getElementById('related-grid');
+  if(rg) rg.innerHTML = related.map(x=>renderProductCard(x,true)).join('');
+}
+
+let pdQtyVal = 1;
+function pdQty(d) {
+  pdQtyVal = Math.max(1, pdQtyVal+d);
+  const el = document.getElementById('pd-qty');
+  if(el) el.textContent = pdQtyVal;
+}
+
+// ══════════════════════════════════════════
+// QUICK VIEW MODAL
+// ══════════════════════════════════════════
+function openModal(id) {
+  const p = products.find(x=>x.id===id);
+  if(!p) return;
+  document.getElementById('modal-content').innerHTML = `
+    <div class="flex flex-col sm:flex-row">
+      <div style="flex:1;padding:2rem;background:linear-gradient(135deg,${p.colors[0]||'#F7C5C5'}22,${(p.colors[1]||'#D8C8E8')}22);display:flex;align-items:center;justify-content:center;border-radius:24px 0 0 24px;min-height:250px;">
+        <div style="font-size:8rem;">${p.emoji}</div>
+      </div>
+      <div style="flex:1;padding:2rem;">
+        <div class="flex justify-between items-start mb-4">
+          <h2 class="font-display text-2xl font-bold">${p.name}</h2>
+          <button onclick="closeModal()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--text-light);">✕</button>
+        </div>
+        <div class="stars mb-2">★★★★★ <span style="font-size:0.8rem;color:var(--text-light);">(${p.reviews})</span></div>
+        <p class="text-sm mb-4" style="color:var(--text-light);line-height:1.7;">${p.description}</p>
+        <div class="text-2xl font-display font-bold mb-6" style="color:var(--rose);">₹${p.price}</div>
+        <div class="flex gap-3">
+          <button class="btn-primary flex-1 justify-center" onclick="addToCart(${p.id});closeModal()">Add to Cart</button>
+          <button class="btn-outline" onclick="openProduct(${p.id});closeModal()">Full Details</button>
+        </div>
+      </div>
+    </div>
+  `;
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal(e) {
+  if(!e || e.target===document.getElementById('modal')) document.getElementById('modal').classList.remove('open');
+}
+
+// ══════════════════════════════════════════
+// CART
+// ══════════════════════════════════════════
+function addToCart(id) {
+  const p = products.find(x=>x.id===id);
+  if(!p) return;
+  const existing = cart.find(c=>c.id===id);
+  if(existing) { existing.qty++; } else { cart.push({...p, qty:1}); }
+  saveCart();
+  updateBadges();
+  showToast(`💕 "${p.name}" added to cart!`);
+  renderShop();
+}
+function removeFromCart(id) {
+  cart = cart.filter(c=>c.id!==id);
+  saveCart();
+  updateBadges();
+  renderCart();
+  renderCheckoutSummary();
+}
+function updateQty(id, delta) {
+  const item = cart.find(c=>c.id===id);
+  if(!item) return;
+  item.qty = Math.max(1, item.qty+delta);
+  saveCart();
+  renderCart();
+  renderCheckoutSummary();
+}
+function saveCart() { localStorage.setItem('wb_cart', JSON.stringify(cart)); }
+
+function getCartTotal() { return cart.reduce((s,c)=>s+c.price*c.qty,0); }
+
+function renderCart() {
+  const el = document.getElementById('cart-items-list');
+  const sum = document.getElementById('cart-summary');
+  if(!el) return;
+  if(cart.length===0) {
+    el.innerHTML = `<div class="text-center py-20"><div style="font-size:5rem;">🛍️</div><h2 class="font-display text-2xl font-bold mt-4 mb-2">Your cart is empty</h2><p style="color:var(--text-light);" class="mb-6">Explore our handmade collection!</p><button class="btn-primary" onclick="navigate('shop')">Shop Now →</button></div>`;
+    if(sum) sum.innerHTML='';
+    return;
+  }
+  el.innerHTML = `
+    <div style="background:white;border-radius:24px;overflow:hidden;box-shadow:0 4px 20px rgba(139,107,74,0.08);">
+      <div style="padding:1.5rem;border-bottom:1px solid rgba(232,160,160,0.15);">
+        <h2 class="font-display text-2xl font-bold">Cart (${cart.length} items)</h2>
+      </div>
+      ${cart.map(item=>`
+        <div style="padding:1.5rem;border-bottom:1px solid rgba(232,160,160,0.1);display:flex;gap:1rem;align-items:center;">
+          <div style="width:80px;height:80px;border-radius:16px;background:${item.colors?.[0]||'#F7C5C5'}22;display:flex;align-items:center;justify-content:center;font-size:2.5rem;flex-shrink:0;">${item.emoji}</div>
+          <div style="flex:1;">
+            <h3 class="font-bold text-base">${item.name}</h3>
+            <p style="color:var(--rose);font-weight:700;font-size:0.9rem;">₹${item.price}</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button class="qty-btn" onclick="updateQty(${item.id},-1)">−</button>
+            <span class="font-bold" style="min-width:24px;text-align:center;">${item.qty}</span>
+            <button class="qty-btn" onclick="updateQty(${item.id},1)">+</button>
+          </div>
+          <div class="font-display font-bold" style="color:var(--text-dark);min-width:70px;text-align:right;">₹${item.price*item.qty}</div>
+          <button onclick="removeFromCart(${item.id})" style="background:none;border:none;color:var(--text-light);cursor:pointer;font-size:1.2rem;transition:color 0.2s;" onmouseover="this.style.color='var(--rose)'" onmouseout="this.style.color='var(--text-light)'">✕</button>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  const total=getCartTotal(), delivery=total>=599?0:49, grand=total+delivery;
+  if(sum) sum.innerHTML = `
+    <div style="background:white;border-radius:24px;padding:1.5rem;box-shadow:0 4px 20px rgba(139,107,74,0.08);">
+      <h2 class="font-display text-xl font-bold mb-5">Order Summary</h2>
+      <div class="space-y-3 text-sm mb-4">
+        <div class="flex justify-between"><span style="color:var(--text-light);">Subtotal</span><span class="font-medium">₹${total}</span></div>
+        <div class="flex justify-between"><span style="color:var(--text-light);">Delivery</span><span class="font-medium" style="color:${delivery===0?'var(--sage)':'inherit'}">${delivery===0?'🎉 FREE':'₹'+delivery}</span></div>
+      </div>
+      <div class="coupon-input mb-4">
+        <input type="text" id="coupon-code" placeholder="Enter coupon code">
+        <button onclick="applyCoupon()">Apply</button>
+      </div>
+      ${couponApplied?`<div class="text-sm mb-3" style="color:green;">✓ Coupon BLOOM10 applied! –₹${Math.round(total*0.1)}</div>`:''}
+      <div style="border-top:1px solid rgba(232,160,160,0.2);padding-top:1rem;margin-top:0.5rem;">
+        <div class="flex justify-between font-display font-bold text-xl">
+          <span>Total</span>
+          <span style="color:var(--rose);">₹${couponApplied?Math.round(grand*0.9):grand}</span>
+        </div>
+      </div>
+      <button class="btn-primary w-full justify-center mt-5" onclick="navigate('checkout')">Proceed to Checkout →</button>
+      <button class="btn-outline w-full justify-center mt-3" onclick="navigate('shop')">Continue Shopping</button>
+    </div>
+  `;
+}
+
+function applyCoupon() {
+  const code = (document.getElementById('coupon-code')||{}).value?.toUpperCase();
+  if(code==='BLOOM10') { couponApplied=true; showToast('🎉 Coupon applied! 10% off!'); renderCart(); }
+  else showToast('❌ Invalid coupon code');
+}
+
+// ══════════════════════════════════════════
+// CHECKOUT SUMMARY
+// ══════════════════════════════════════════
+function renderCheckoutSummary() {
+  const el = document.getElementById('checkout-summary');
+  if(!el) return;
+  const total=getCartTotal(), delivery=total>=599?0:49, grand=total+delivery;
+  el.innerHTML = `
+    <div style="background:white;border-radius:24px;padding:1.5rem;box-shadow:0 4px 20px rgba(139,107,74,0.08);">
+      <h2 class="font-display text-xl font-bold mb-5">Order Summary</h2>
+      ${cart.map(c=>`
+        <div class="flex items-center gap-3 mb-3">
+          <div style="width:52px;height:52px;border-radius:12px;background:${c.colors?.[0]||'#F7C5C5'}22;display:flex;align-items:center;justify-content:center;font-size:1.8rem;flex-shrink:0;">${c.emoji}</div>
+          <div style="flex:1;"><p class="text-sm font-medium">${c.name}</p><p class="text-xs" style="color:var(--text-light);">Qty: ${c.qty}</p></div>
+          <span class="font-bold text-sm" style="color:var(--rose);">₹${c.price*c.qty}</span>
+        </div>
+      `).join('')}
+      <div style="border-top:1px solid rgba(232,160,160,0.2);padding-top:1rem;margin-top:0.5rem;space-y:0.5rem;">
+        <div class="flex justify-between text-sm mb-2"><span style="color:var(--text-light);">Subtotal</span><span>₹${total}</span></div>
+        <div class="flex justify-between text-sm mb-3"><span style="color:var(--text-light);">Delivery</span><span>${delivery===0?'FREE':'₹'+delivery}</span></div>
+        <div class="flex justify-between font-display font-bold text-xl"><span>Total</span><span style="color:var(--rose);">₹${grand}</span></div>
+      </div>
+      <button class="btn-primary w-full justify-center mt-5" onclick="placeOrder()">🎁 Place Order</button>
+    </div>
+  `;
+}
+
+function placeOrder() {
+  cart=[];saveCart();updateBadges();
+  showToast('🎉 Order placed! Thank you for choosing Wooly Bloom!');
+  setTimeout(()=>navigate('home'),1500);
+}
+
+// ══════════════════════════════════════════
+// WISHLIST
+// ══════════════════════════════════════════
+function toggleWishlist(id, btn) {
+  if(wishlist.includes(id)) {
+    wishlist=wishlist.filter(w=>w!==id);
+    showToast('💔 Removed from wishlist');
+  } else {
+    wishlist.push(id);
+    showToast('💕 Added to wishlist!');
+  }
+  localStorage.setItem('wb_wishlist',JSON.stringify(wishlist));
+  updateBadges();
+  if(btn) {
+    const svg = btn.querySelector('svg');
+    if(svg) { svg.setAttribute('fill',wishlist.includes(id)?'var(--rose)':'none'); svg.setAttribute('stroke',wishlist.includes(id)?'var(--rose)':'var(--text-light)'); }
+  }
+}
+function renderWishlist() {
+  const el=document.getElementById('wishlist-grid');
+  if(!el) return;
+  const items=products.filter(p=>wishlist.includes(p.id));
+  el.innerHTML=items.length?items.map(p=>renderProductCard(p)).join(''):`<div class="col-span-4 text-center py-20"><div style="font-size:5rem;">💕</div><h2 class="font-display text-2xl font-bold mt-4 mb-2">Your wishlist is empty</h2><p style="color:var(--text-light);" class="mb-6">Save items you love!</p><button class="btn-primary" onclick="navigate('shop')">Explore Products</button></div>`;
+}
+
+// ══════════════════════════════════════════
+// BADGES
+// ══════════════════════════════════════════
+function updateBadges() {
+  const cartTotal=cart.reduce((s,c)=>s+c.qty,0);
+  const cc=document.getElementById('cart-count');
+  if(cc){cc.textContent=cartTotal;cc.classList.toggle('hidden',cartTotal===0);}
+  const wc=document.getElementById('wishlist-count');
+  if(wc){wc.textContent=wishlist.length;wc.classList.toggle('hidden',wishlist.length===0);}
+}
+
+// ══════════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════════
+function showToast(msg) {
+  const t=document.createElement('div');
+  t.className='toast'; t.textContent=msg;
+  document.getElementById('toast-container').appendChild(t);
+  setTimeout(()=>t.classList.add('show'),10);
+  setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),400);},2800);
+}
+
+// ══════════════════════════════════════════
+// FAQ
+// ══════════════════════════════════════════
+function toggleFAQ(btn) {
+  const answer=btn.nextElementSibling;
+  const isOpen=answer.classList.contains('open');
+  document.querySelectorAll('.faq-answer').forEach(a=>a.classList.remove('open'));
+  document.querySelectorAll('.faq-question').forEach(b=>b.classList.remove('open'));
+  if(!isOpen){answer.classList.add('open');btn.classList.add('open');}
+}
+
+// ══════════════════════════════════════════
+// GALLERY
+// ══════════════════════════════════════════
+let galleryFilter='all';
+function setGalleryTab(tab,el) {
+  galleryFilter=tab;
+  document.querySelectorAll('#page-gallery .filter-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  renderGallery();
+}
+function renderGallery() {
+  const items = galleryFilter==='all' ? galleryItems : galleryItems.filter(g=>g.category===galleryFilter);
+  const el=document.getElementById('gallery-masonry');
+  if(!el) return;
+  el.innerHTML=items.map(g=>`
+    <div class="masonry-item" style="height:${g.height};">
+      <div style="background:linear-gradient(135deg,${g.color},${g.color}88);height:100%;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform=''">
+        <div style="font-size:4rem;">${g.emoji}</div>
+        <div style="position:absolute;bottom:12px;left:12px;background:rgba(255,255,255,0.9);border-radius:8px;padding:0.25rem 0.75rem;font-size:0.75rem;font-weight:600;color:var(--text-dark);">${g.label}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ══════════════════════════════════════════
+// PAYMENT SELECT
+// ══════════════════════════════════════════
+function selectPayment(el) {
+  document.querySelectorAll('.payment-option').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ══════════════════════════════════════════
+// CUSTOM ORDER
+// ══════════════════════════════════════════
+const productEmojis = {'Heart Bouquet':'💕','Sunflower Bouquet':'🌻','Mixed Bouquet':'🌸','Keychain':'🔑','Mini Plushie':'🧸','Gift Hamper':'🎁','Custom Design':'✨','':`🌸`};
+
+function updatePreview() {
+  const name=(document.getElementById('co-name')||{}).value||'Your';
+  const product=(document.getElementById('co-product')||{}).value||'';
+  const budget=(document.getElementById('co-budget')||{}).value||'₹200 – ₹500';
+  const message=(document.getElementById('co-message')||{}).value||'';
+  const date=(document.getElementById('co-date')||{}).value||'';
+
+  const ep=document.getElementById('preview-emoji');
+  const pp=document.getElementById('preview-product');
+  const cp=document.getElementById('preview-color');
+  const bp=document.getElementById('preview-budget');
+  const mp=document.getElementById('preview-message');
+  const cust=document.getElementById('preview-customer');
+
+  if(ep) ep.textContent=productEmojis[product]||'🌸';
+  if(pp) pp.textContent=product||'Your Custom Bouquet';
+  if(cp) cp.textContent=`Color: ${selectedColors.join(', ')}`;
+  if(bp) bp.textContent=`Budget: ${budget}`;
+  if(mp) mp.textContent=message?`"${message}"`:'';
+  if(cust) cust.textContent=name&&name!='Your'?`For: ${name}${date?` • Delivery: ${date}`:''}`:date?`Delivery: ${date}`:'';
+}
+
+function selectColor(el, colorName) {
+  const allSwatches = document.querySelectorAll('.color-swatch');
+  if(el.classList.contains('active')) {
+    el.classList.remove('active');
+    selectedColors=selectedColors.filter(c=>c!==colorName);
+    if(selectedColors.length===0){selectedColors=['Pink'];allSwatches[0].classList.add('active');}
+  } else {
+    el.classList.add('active');
+    if(!selectedColors.includes(colorName)) selectedColors.push(colorName);
+  }
+  const st=document.getElementById('selected-color-text');
+  if(st) st.textContent='Selected: '+selectedColors.join(', ');
+  updatePreview();
+}
+
+function changeQty(d) {
+  customQty=Math.max(1,customQty+d);
+  const el=document.getElementById('co-qty');
+  if(el) el.textContent=customQty;
+}
+
+function submitViaWhatsApp() {
+  const name=(document.getElementById('co-name')||{}).value||'';
+  const phone=(document.getElementById('co-phone')||{}).value||'';
+  const product=(document.getElementById('co-product')||{}).value||'';
+  const budget=(document.getElementById('co-budget')||{}).value||'';
+  const message=(document.getElementById('co-message')||{}).value||'';
+  if(!name||!product) { showToast('⚠️ Please fill your name and select a product!'); return; }
+  const text=encodeURIComponent(`Hi Wooly Bloom! 🌸\n\nCustom Order Request:\n👤 Name: ${name}\n📱 Phone: ${phone}\n🛍️ Product: ${product}\n🎨 Colors: ${selectedColors.join(', ')}\n📦 Quantity: ${customQty}\n💰 Budget: ${budget}\n💬 Message: ${message||'N/A'}`);
+  window.open(`https://wa.me/919999999999?text=${text}`,'_blank');
+}
+
+function submitCustomOrder() {
+  const name=(document.getElementById('co-name')||{}).value||'';
+  const email=(document.getElementById('co-email')||{}).value||'';
+  const product=(document.getElementById('co-product')||{}).value||'';
+  if(!name||!email||!product) { showToast('⚠️ Please fill all required fields!'); return; }
+  showToast('🎉 Order submitted! We\'ll contact you within 24 hours!');
+}
+
+// ══════════════════════════════════════════
+// NEWSLETTER
+// ══════════════════════════════════════════
+function subscribeNewsletter() {
+  const email=(document.getElementById('newsletter-email')||{}).value;
+  if(!email||!email.includes('@')) { showToast('⚠️ Please enter a valid email!'); return; }
+  showToast('🌸 You\'re subscribed! Bloom updates coming your way!');
+  if(document.getElementById('newsletter-email')) document.getElementById('newsletter-email').value='';
+}
+
+// ══════════════════════════════════════════
+// CONTACT
+// ══════════════════════════════════════════
+function submitContactForm() {
+  showToast('💌 Message sent! We\'ll reply within 24 hours!');
+}
+
+// ══════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════
+updateBadges();
+renderGallery();
+
+// Pre-set date min for custom order
+const dateInput = document.getElementById('co-date');
+if(dateInput) {
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate()+3);
+  dateInput.min=tomorrow.toISOString().split('T')[0];
+}
+</script>
+</body>
+</html>
