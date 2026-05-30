@@ -1655,34 +1655,85 @@
   </div>
 </div>
 
+
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
 <script>
+
+  // ── FIREBASE INIT ──
+const firebaseConfig = {
+  apiKey: "AIzaSyAbYhqgWgudmNnTQ9XMTVoJNECwUNutaMM",
+  authDomain: "taskmanage-831fd.firebaseapp.com",
+  projectId: "taskmanage-831fd",
+  storageBucket: "taskmanage-831fd.appspot.com",
+  messagingSenderId: "505742608017",
+  appId: "1:505742608017:web:4c2d42ef8399dedb35e130"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// ── DATA ──
+let products = [];   // populated from Firestore
+
+// ── FETCH PRODUCTS FROM FIRESTORE ──
+async function fetchProducts() {
+  try {
+    const snap = await db.collection('woolybloom_products').get();
+    products = snap.docs.map(doc => {
+      const d = doc.data();
+      return {
+        id:          doc.id,          // Firestore doc ID
+        name:        d.name || '',
+        image:       d.imageURL || '',// admin saves as imageURL
+        category:    d.category || 'custom',
+        price:       d.price || 0,
+        rating:      d.rating || 4.5,
+        reviews:     d.reviews || 0,
+        colors:      d.colors || [],
+        description: d.description || '',
+        badge:       d.badge || null,
+        inStock:     d.inStock !== false,
+      };
+    });
+    renderCarousel();
+    renderBestsellers();
+    renderShop();
+    initReveal();
+  } catch (e) {
+    console.error('Failed to load products:', e);
+    showToast('⚠️ Could not load products. Please refresh.');
+  }
+}
+
+
 // ══════════════════════════════════════════
 // DATA
 // ══════════════════════════════════════════
-const products = [
-  { id:1, name:'Heart Bouquet', image:'./assets/images/heart-bouquet.jpg', category:'hearts', price:349, rating:5, reviews:128, colors:['#F7C5C5','#D8C8E8','#F5D878'], description:'A stunning bouquet of handcrafted crochet hearts in premium yarn. Perfect for birthdays, anniversaries, and Valentine\'s Day.', badge:'Best Seller' },
-  { id:2, name:'Sunflower Bouquet', image:'./assets/images/sunflower-bouquet.jpg', category:'sunflower', price:449, rating:5, reviews:97, colors:['#F5D878','#E8C040','#B8D4B8'], description:'A cheerful bouquet of hand-crocheted sunflowers — bright, warm, and eternally beautiful.', badge:'Trending' },
-  { id:3, name:'Mini Bunny Plushie', image:'./assets/images/mini-bunny-plushie.jpg', category:'plushies', price:279, rating:5, reviews:84, colors:['#F7C5C5','#FFFFFF','#D8C8E8'], description:'The most adorable little bunny, entirely handmade. A perfect companion or gift for all ages.', badge:'Cute!' },
-  { id:4, name:'Heart Keychain', image:'./assets/images/heart-keychain.jpg', category:'keychains', price:149, rating:4.8, reviews:203, colors:['#F7C5C5','#D8C8E8','#F5D878','#B8D4B8'], description:'Carry your love everywhere with our hand-crocheted heart keychain in your favorite color.', badge:'Popular' },
-  { id:5, name:'Mixed Floral Bouquet', image:'./assets/images/mixed-floral-bouquet.jpg', category:'hearts', price:549, rating:5, reviews:62, colors:['#F7C5C5','#D8C8E8','#F5D878'], description:'A beautiful mix of crochet roses, daisies, and hearts. The ultimate romantic bouquet.', badge:'Premium' },
-  {id: 6, name: 'Mini Heart Keychain', image:'./assets/images/mini-heart-keychain.jpg', category:'keychains', price:129, rating:4.9, reviews:142, colors:['#F7C5C5','#D8C8E8','#F5D878'], description:'A tiny heart keychain, hand-crocheted with love. A sweet accessory to keep your loved ones close.', badge:'New Arrival' },
-  { id:7, name:'Gift Hamper – Bloom', image:'./assets/images/gift-hamper.jpg', category:'hampers', price:899, rating:5, reviews:45, colors:['#F7C5C5','#D8C8E8'], description:'A curated gift hamper with a heart bouquet, two keychains, and a mini plushie — beautifully packaged.', badge:'Gift Ready' },
-  { id:8, name:'Mini Bear Plushie', image:'./assets/images/mini-bear-plushie.jpg', category:'plushies', price:299, rating:4.9, reviews:71, colors:['#E8C8B0','#F7C5C5','#D8C8E8'], description:'A tiny, huggable crochet bear made with ultra-soft premium yarn. The perfect cuddle buddy.', badge:null },
-  { id:9, name:'Star Keychain', image:'./assets/images/star-keychain.jpg', category:'keychains', price:139, rating:4.7, reviews:119, colors:['#F5D878','#E8C040','#F7C5C5'], description:'A charming crocheted star keychain — spread a little magic wherever you go!', badge:null },
-  { id:10, name:'Custom Bouquet', image:'./assets/images/custom-bouquet.jpg', category:'custom', price:599, rating:5, reviews:38, colors:[], description:'Fully customized crochet bouquet — your choice of flowers, colors, sizes, and personalized message.', badge:'Custom' },
-  { id:11, name:'Lavender Bouquet', image:'./assets/images/lavender-bouquet.jpg', category:'sunflower', price:399, rating:4.9, reviews:53, colors:['#D8C8E8','#C4A8D8','#F7C5C5'], description:'A romantic lavender-toned crochet bouquet — ethereal, elegant, and timeless.', badge:null },
-  { id:12, name:'Premium Gift Hamper', image:'./assets/images/gift-hamper–bloom.jpg', category:'hampers', price:1199, rating:5, reviews:29, colors:['#F7C5C5','#D8C8E8','#F5D878'], description:'Our most luxurious gift set — a sunflower bouquet, three keychains, one plushie, and a greeting card.', badge:'Luxury' },
-  { id: 13, name: 'Sunflower Keychain', image: './assets/images/sunflower-keychain.jpeg', category: 'keychains', price: 99, rating: 4.8, reviews: 88, colors: ['#F5D878','#E8C040'], description: 'A bright and cheerful sunflower keychain, hand-crocheted with love. A perfect little gift or treat for yourself.', badge: 'New Arrival' },
-  { id: 14, name: 'Daisy Keychain', image: './assets/images/daisy-keychain.jpeg', category: 'keychains', price: 99, rating: 4.7, reviews: 76, colors: ['#FFFFFF','#F5D878'], description: 'A delicate daisy keychain, hand-crocheted with soft white and yellow yarn. A sweet accessory for your keys or bag.', badge: 'New Arrival' },
-  { id: 15, name: 'Peackock Feather Keychain', image: './assets/images/peacock-feather-keychain.jpeg', category: 'keychains', price: 129, rating: 4.9, reviews: 64, colors: ['#B8D4B8','#E8C040','#F7C5C5'], description: 'A vibrant peacock feather keychain, hand-crocheted with premium yarn in stunning colors. A unique accessory to brighten your day.', badge: 'New Arrival' },
-  { id: 16, name: 'Bow CLip', image: './assets/images/bow-clip.jpeg', category: 'accessories', price: 79, rating: 4.6, reviews: 42, colors: ['#F5D878','#E8C040','#F7C5C5'], description: 'A cute bow clip, hand-crocheted with soft yarn. Perfect for adding a touch of charm to your hairstyle.', badge: 'New Arrival' },
-  { id: 17, name: 'Sunflower Rubber Band', image: './assets/images/sunflower-rubber-band.jpeg', category: 'accessories', price: 89, rating: 4.8, reviews: 54, colors: ['#F5D878','#E8C040'], description: 'A cute sunflower rubber band, hand-crocheted with soft yarn and attached to a durable elastic band. Perfect for adding a touch of sunshine to your hairstyle.', badge: 'New Arrival' },
-  { id: 18, name: 'Cherry Keychain', image: './assets/images/cherry-keychain.jpeg', category: 'keychains', price: 99, rating: 4.7, reviews: 68, colors: ['#F7C5C5','#E8C040'], description: 'A sweet cherry keychain, hand-crocheted with vibrant red and green yarn. A delightful accessory for your keys or bag.', badge: 'New Arrival' },
-  { id: 19, name: 'Mini Cat Plushie', image: './assets/images/mini-cat-plushie.jpeg', category: 'plushies', price: 299, rating: 4.9, reviews: 72, colors: ['#E8C8B0','#F7C5C5','#D8C8E8'], description: 'An adorable mini cat plushie, hand-crocheted with ultra-soft premium yarn. The perfect cuddle buddy for cat lovers.', badge: 'New Arrival' },
-  { id: 20, name: 'Evil Eye Keychain', image: './assets/images/evil-eye-keychain.jpeg', category: 'keychains', price: 109, rating: 4.8, reviews: 58, colors: ['#B8D4B8','#E8C040','#F7C5C5'], description: 'A protective evil eye keychain, hand-crocheted with vibrant yarn. A stylish accessory believed to ward off negativity.', badge: 'New Arrival' },
-  {id: 21, name: 'Rose Bag', image: './assets/images/rose-bag.jpeg', category: 'accessories', price: 499, rating: 4.9, reviews: 34, colors: ['#F7C5C5','#D8C8E8','#F5D878'], description: 'A charming rose bag, hand-crocheted with premium yarn. Perfect for carrying your essentials with a touch of floral elegance.', badge: 'New Arrival' },
-  {id: 22, name: 'Cup Coaster Set', image: './assets/images/cup-coaster-set.jpeg', category: 'home-decor', price: 299, rating: 4.8, reviews: 46, colors: ['#F5D878','#E8C040','#F7C5C5'], description: 'A set of four cup coasters, hand-crocheted with vibrant yarn. A stylish and functional addition to your home decor.', badge: 'New Arrival' },
-];
+// const products = [
+//   { id:1, name:'Heart Bouquet', image:'./assets/images/heart-bouquet.jpg', category:'hearts', price:349, rating:5, reviews:128, colors:['#F7C5C5','#D8C8E8','#F5D878'], description:'A stunning bouquet of handcrafted crochet hearts in premium yarn. Perfect for birthdays, anniversaries, and Valentine\'s Day.', badge:'Best Seller' },
+//   { id:2, name:'Sunflower Bouquet', image:'./assets/images/sunflower-bouquet.jpg', category:'sunflower', price:449, rating:5, reviews:97, colors:['#F5D878','#E8C040','#B8D4B8'], description:'A cheerful bouquet of hand-crocheted sunflowers — bright, warm, and eternally beautiful.', badge:'Trending' },
+//   { id:3, name:'Mini Bunny Plushie', image:'./assets/images/mini-bunny-plushie.jpg', category:'plushies', price:279, rating:5, reviews:84, colors:['#F7C5C5','#FFFFFF','#D8C8E8'], description:'The most adorable little bunny, entirely handmade. A perfect companion or gift for all ages.', badge:'Cute!' },
+//   { id:4, name:'Heart Keychain', image:'./assets/images/heart-keychain.jpg', category:'keychains', price:149, rating:4.8, reviews:203, colors:['#F7C5C5','#D8C8E8','#F5D878','#B8D4B8'], description:'Carry your love everywhere with our hand-crocheted heart keychain in your favorite color.', badge:'Popular' },
+//   { id:5, name:'Mixed Floral Bouquet', image:'./assets/images/mixed-floral-bouquet.jpg', category:'hearts', price:549, rating:5, reviews:62, colors:['#F7C5C5','#D8C8E8','#F5D878'], description:'A beautiful mix of crochet roses, daisies, and hearts. The ultimate romantic bouquet.', badge:'Premium' },
+//   {id: 6, name: 'Mini Heart Keychain', image:'./assets/images/mini-heart-keychain.jpg', category:'keychains', price:129, rating:4.9, reviews:142, colors:['#F7C5C5','#D8C8E8','#F5D878'], description:'A tiny heart keychain, hand-crocheted with love. A sweet accessory to keep your loved ones close.', badge:'New Arrival' },
+//   { id:7, name:'Gift Hamper – Bloom', image:'./assets/images/gift-hamper.jpg', category:'hampers', price:899, rating:5, reviews:45, colors:['#F7C5C5','#D8C8E8'], description:'A curated gift hamper with a heart bouquet, two keychains, and a mini plushie — beautifully packaged.', badge:'Gift Ready' },
+//   { id:8, name:'Mini Bear Plushie', image:'./assets/images/mini-bear-plushie.jpg', category:'plushies', price:299, rating:4.9, reviews:71, colors:['#E8C8B0','#F7C5C5','#D8C8E8'], description:'A tiny, huggable crochet bear made with ultra-soft premium yarn. The perfect cuddle buddy.', badge:null },
+//   { id:9, name:'Star Keychain', image:'./assets/images/star-keychain.jpg', category:'keychains', price:139, rating:4.7, reviews:119, colors:['#F5D878','#E8C040','#F7C5C5'], description:'A charming crocheted star keychain — spread a little magic wherever you go!', badge:null },
+//   { id:10, name:'Custom Bouquet', image:'./assets/images/custom-bouquet.jpg', category:'custom', price:599, rating:5, reviews:38, colors:[], description:'Fully customized crochet bouquet — your choice of flowers, colors, sizes, and personalized message.', badge:'Custom' },
+//   { id:11, name:'Lavender Bouquet', image:'./assets/images/lavender-bouquet.jpg', category:'sunflower', price:399, rating:4.9, reviews:53, colors:['#D8C8E8','#C4A8D8','#F7C5C5'], description:'A romantic lavender-toned crochet bouquet — ethereal, elegant, and timeless.', badge:null },
+//   { id:12, name:'Premium Gift Hamper', image:'./assets/images/gift-hamper–bloom.jpg', category:'hampers', price:1199, rating:5, reviews:29, colors:['#F7C5C5','#D8C8E8','#F5D878'], description:'Our most luxurious gift set — a sunflower bouquet, three keychains, one plushie, and a greeting card.', badge:'Luxury' },
+//   { id: 13, name: 'Sunflower Keychain', image: './assets/images/sunflower-keychain.jpeg', category: 'keychains', price: 99, rating: 4.8, reviews: 88, colors: ['#F5D878','#E8C040'], description: 'A bright and cheerful sunflower keychain, hand-crocheted with love. A perfect little gift or treat for yourself.', badge: 'New Arrival' },
+//   { id: 14, name: 'Daisy Keychain', image: './assets/images/daisy-keychain.jpeg', category: 'keychains', price: 99, rating: 4.7, reviews: 76, colors: ['#FFFFFF','#F5D878'], description: 'A delicate daisy keychain, hand-crocheted with soft white and yellow yarn. A sweet accessory for your keys or bag.', badge: 'New Arrival' },
+//   { id: 15, name: 'Peackock Feather Keychain', image: './assets/images/peacock-feather-keychain.jpeg', category: 'keychains', price: 129, rating: 4.9, reviews: 64, colors: ['#B8D4B8','#E8C040','#F7C5C5'], description: 'A vibrant peacock feather keychain, hand-crocheted with premium yarn in stunning colors. A unique accessory to brighten your day.', badge: 'New Arrival' },
+//   { id: 16, name: 'Bow CLip', image: './assets/images/bow-clip.jpeg', category: 'accessories', price: 79, rating: 4.6, reviews: 42, colors: ['#F5D878','#E8C040','#F7C5C5'], description: 'A cute bow clip, hand-crocheted with soft yarn. Perfect for adding a touch of charm to your hairstyle.', badge: 'New Arrival' },
+//   { id: 17, name: 'Sunflower Rubber Band', image: './assets/images/sunflower-rubber-band.jpeg', category: 'accessories', price: 89, rating: 4.8, reviews: 54, colors: ['#F5D878','#E8C040'], description: 'A cute sunflower rubber band, hand-crocheted with soft yarn and attached to a durable elastic band. Perfect for adding a touch of sunshine to your hairstyle.', badge: 'New Arrival' },
+//   { id: 18, name: 'Cherry Keychain', image: './assets/images/cherry-keychain.jpeg', category: 'keychains', price: 99, rating: 4.7, reviews: 68, colors: ['#F7C5C5','#E8C040'], description: 'A sweet cherry keychain, hand-crocheted with vibrant red and green yarn. A delightful accessory for your keys or bag.', badge: 'New Arrival' },
+//   { id: 19, name: 'Mini Cat Plushie', image: './assets/images/mini-cat-plushie.jpeg', category: 'plushies', price: 299, rating: 4.9, reviews: 72, colors: ['#E8C8B0','#F7C5C5','#D8C8E8'], description: 'An adorable mini cat plushie, hand-crocheted with ultra-soft premium yarn. The perfect cuddle buddy for cat lovers.', badge: 'New Arrival' },
+//   { id: 20, name: 'Evil Eye Keychain', image: './assets/images/evil-eye-keychain.jpeg', category: 'keychains', price: 109, rating: 4.8, reviews: 58, colors: ['#B8D4B8','#E8C040','#F7C5C5'], description: 'A protective evil eye keychain, hand-crocheted with vibrant yarn. A stylish accessory believed to ward off negativity.', badge: 'New Arrival' },
+//   {id: 21, name: 'Rose Bag', image: './assets/images/rose-bag.jpeg', category: 'accessories', price: 499, rating: 4.9, reviews: 34, colors: ['#F7C5C5','#D8C8E8','#F5D878'], description: 'A charming rose bag, hand-crocheted with premium yarn. Perfect for carrying your essentials with a touch of floral elegance.', badge: 'New Arrival' },
+//   {id: 22, name: 'Cup Coaster Set', image: './assets/images/cup-coaster-set.jpeg', category: 'home-decor', price: 299, rating: 4.8, reviews: 46, colors: ['#F5D878','#E8C040','#F7C5C5'], description: 'A set of four cup coasters, hand-crocheted with vibrant yarn. A stylish and functional addition to your home decor.', badge: 'New Arrival' },
+// ];
 
 const galleryItems = [
   { image:'./assets/images/rose-bouquet.jpg', category:'bouquets', color:'#FFE4E4', height:'220px', label:'Rose Bouquet' },
@@ -1771,12 +1822,12 @@ function initReveal() {
 // LOADER
 // ══════════════════════════════════════════
 window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.getElementById('loader').classList.add('hidden');
-    initReveal();
-    renderCarousel();
-    renderBestsellers();
-  }, 1200);
+  fetchProducts().then(() => {
+    setTimeout(() => {
+      document.getElementById('loader').classList.add('hidden');
+      initReveal();
+    }, 1200);
+  });
 });
 
 // ══════════════════════════════════════════
@@ -1795,11 +1846,11 @@ function renderProductCard(p, small=false) {
   const inCart = cart.some(c => c.id === p.id);
   const stars = '★'.repeat(Math.floor(p.rating)) + (p.rating%1 ? '½' : '');
   return `
-  <div class="product-card" onclick="openProduct(${p.id})">
+  <div class="product-card" onclick="openProduct('${p.id}')">
     <div class="card-img" style="background:linear-gradient(135deg,${p.colors[0]||'#F7C5C5'}33,${(p.colors[1]||p.colors[0]||'#D8C8E8')}33);">
-      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:${small?'3.5':'4.5'}rem;"><img src=${p.image} alt=${p.name}/></div>
+      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:${small?'3.5':'4.5'}rem;"><img src="${p.image}" alt="${p.name}"/></div>
       ${p.badge?`<div style="position:absolute;top:12px;left:12px;background:linear-gradient(135deg,var(--rose),var(--lilac));color:white;font-size:0.7rem;font-weight:700;padding:0.25rem 0.75rem;border-radius:20px;letter-spacing:0.05em;">${p.badge}</div>`:''}
-      <button class="wishlist-btn ${inWish?'active':''}" onclick="event.stopPropagation();toggleWishlist(${p.id},this)">
+      <button class="wishlist-btn ${inWish?'active':''}" onclick="event.stopPropagation();toggleWishlist('${p.id}',this)">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="${inWish?'var(--rose)':'none'}" stroke="${inWish?'var(--rose)':'var(--text-light)'}" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
       </button>
     </div>
@@ -1811,7 +1862,7 @@ function renderProductCard(p, small=false) {
       </div>
       <div class="flex items-center justify-between mt-3">
         <span class="font-display font-bold text-lg" style="color:var(--rose);">₹${p.price}</span>
-        <button onclick="event.stopPropagation();addToCart(${p.id})" style="background:${inCart?'var(--rose)':'linear-gradient(135deg,var(--rose),var(--lilac))'};color:white;border:none;border-radius:50px;padding:0.4rem 1rem;font-size:0.75rem;font-weight:600;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform=''">
+        <button onclick="event.stopPropagation();addToCart('${p.id}')" style="background:${inCart?'var(--rose)':'linear-gradient(135deg,var(--rose),var(--lilac))'};color:white;border:none;border-radius:50px;padding:0.4rem 1rem;font-size:0.75rem;font-weight:600;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform=''">
           ${inCart?'✓ Added':'Add to Cart'}
         </button>
       </div>
@@ -1944,13 +1995,13 @@ function openProduct(id) {
     </div>
 
     <div class="flex flex-col sm:flex-row gap-3">
-      <button class="btn-primary flex-1 justify-center" onclick="addToCart(${p.id})">
+      <button class="btn-primary flex-1 justify-center" onclick="addToCart('${p.id}')">
         🛍️ ${inCart?'Added to Cart':'Add to Cart'}
       </button>
-      <button class="btn-outline flex-1 justify-center" onclick="addToCart(${p.id});navigate('checkout')">
+      <button class="btn-outline flex-1 justify-center" onclick="addToCart('${p.id}');navigate('checkout')">
         Buy Now →
       </button>
-      <button onclick="toggleWishlist(${p.id},this)" style="width:48px;height:48px;border-radius:50%;border:1.5px solid rgba(232,160,160,0.4);background:white;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;" onmouseover="this.style.background='rgba(247,197,197,0.2)'" onmouseout="this.style.background='white'">
+      <button onclick="toggleWishlist('${p.id}',this)" style="width:48px;height:48px;border-radius:50%;border:1.5px solid rgba(232,160,160,0.4);background:white;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;" onmouseover="this.style.background='rgba(247,197,197,0.2)'" onmouseout="this.style.background='white'">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="${inWish?'var(--rose)':'none'}" stroke="var(--rose)" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
       </button>
     </div>
@@ -1996,8 +2047,8 @@ function openModal(id) {
         <p class="text-sm mb-4" style="color:var(--text-light);line-height:1.7;">${p.description}</p>
         <div class="text-2xl font-display font-bold mb-6" style="color:var(--rose);">₹${p.price}</div>
         <div class="flex gap-3">
-          <button class="btn-primary flex-1 justify-center" onclick="addToCart(${p.id});closeModal()">Add to Cart</button>
-          <button class="btn-outline" onclick="openProduct(${p.id});closeModal()">Full Details</button>
+          <button class="btn-primary flex-1 justify-center" onclick="addToCart('${p.id}');closeModal()">Add to Cart</button>
+          <button class="btn-outline" onclick="openProduct('${p.id}');closeModal()">Full Details</button>
         </div>
       </div>
     </div>
@@ -2062,12 +2113,12 @@ function renderCart() {
             <p style="color:var(--rose);font-weight:700;font-size:0.9rem;">₹${item.price}</p>
           </div>
           <div class="flex items-center gap-2">
-            <button class="qty-btn" onclick="updateQty(${item.id},-1)">−</button>
+            <button class="qty-btn" onclick="updateQty('${item.id}',-1)">−</button>
             <span class="font-bold" style="min-width:24px;text-align:center;">${item.qty}</span>
-            <button class="qty-btn" onclick="updateQty(${item.id},1)">+</button>
+            <button class="qty-btn" onclick="updateQty('${item.id}',1)">+</button>
           </div>
           <div class="font-display font-bold" style="color:var(--text-dark);min-width:70px;text-align:right;">₹${item.price*item.qty}</div>
-          <button onclick="removeFromCart(${item.id})" style="background:none;border:none;color:var(--text-light);cursor:pointer;font-size:1.2rem;transition:color 0.2s;" onmouseover="this.style.color='var(--rose)'" onmouseout="this.style.color='var(--text-light)'">✕</button>
+          <button onclick="removeFromCart('${item.id}')" style="background:none;border:none;color:var(--text-light);cursor:pointer;font-size:1.2rem;transition:color 0.2s;" onmouseover="this.style.color='var(--rose)'" onmouseout="this.style.color='var(--text-light)'">✕</button>
         </div>
       `).join('')}
     </div>
@@ -2324,5 +2375,7 @@ if(dateInput) {
   dateInput.min=tomorrow.toISOString().split('T')[0];
 }
 </script>
+
+
 </body>
 </html>
