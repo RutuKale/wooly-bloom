@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Form Upload</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #4285F4;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #3367D6;
+        }
+
+        #status {
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        img {
+            max-width: 150px;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>User Registration Form</h2>
+
+    <form id="userForm">
+        <input type="text" id="name" placeholder="Enter Name" required>
+
+        <input type="email" id="email" placeholder="Enter Email" required>
+
+        <input type="file" id="image" accept="image/*" required>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <p id="status"></p>
+
+    <script type="module">
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+        import {
+            getFirestore,
+            collection,
+            addDoc,
+            serverTimestamp
+        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        import {
+            getStorage,
+            ref,
+            uploadBytes,
+            getDownloadURL
+        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+
+        // Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyAbYhqgWgudmNnTQ9XMTVoJNECwUNutaMM",
+            authDomain: "taskmanage-831fd.firebaseapp.com",
+            projectId: "taskmanage-831fd",
+            storageBucket: "taskmanage-831fd.appspot.com",
+            messagingSenderId: "505742608017",
+            appId: "1:505742608017:web:4c2d42ef8399dedb35e130",
+            measurementId: "G-FT9MKLNEH5"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
+        const form = document.getElementById("userForm");
+        const status = document.getElementById("status");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            try {
+
+                status.innerHTML = "Uploading...";
+
+                const name = document.getElementById("name").value;
+                const email = document.getElementById("email").value;
+                const file = document.getElementById("image").files[0];
+
+                if (!file) {
+                    alert("Please select an image");
+                    return;
+                }
+
+                // Create unique file name
+                const fileName = Date.now() + "_" + file.name;
+
+                // Storage Reference
+                const storageRef = ref(storage, "uploads/" + fileName);
+
+                // Upload Image
+                await uploadBytes(storageRef, file);
+
+                // Get Image URL
+                const imageUrl = await getDownloadURL(storageRef);
+
+                // Save Form Data to Firestore
+                await addDoc(collection(db, "users"), {
+                    name: name,
+                    email: email,
+                    imageUrl: imageUrl,
+                    fileName: fileName,
+                    createdAt: serverTimestamp()
+                });
+
+                status.innerHTML = "✅ Data saved successfully!";
+
+                form.reset();
+
+                console.log("Saved Successfully");
+
+            } catch (error) {
+                console.error(error);
+                status.innerHTML = "❌ Error: " + error.message;
+            }
+        });
+
+    </script>
+
+</body>
+</html>

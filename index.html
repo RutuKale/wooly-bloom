@@ -1141,6 +1141,8 @@
       <button class="filter-chip" onclick="setCategory('plushies',this)">🧸 Plushies</button>
       <button class="filter-chip" onclick="setCategory('custom',this)">✨ Custom</button>
       <button class="filter-chip" onclick="setCategory('hampers',this)">🎁 Hampers</button>
+      <button class="filter-chip" onclick="setCategory('accessories',this)">🎀 Accessories</button>
+      <button class="filter-chip" onclick="setCategory('home-decor',this)">🏡 Home Decor</button>
     </div>
     <!-- Grid -->
     <div id="shop-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-10"></div>
@@ -1658,25 +1660,35 @@
 // DATA
 // ══════════════════════════════════════════
 const products = [
-  { id:1, name:'Heart Bouquet', emoji:'💕', category:'hearts', price:349, rating:5, reviews:128, colors:['#F7C5C5','#D8C8E8','#F5D878'], description:'A stunning bouquet of handcrafted crochet hearts in premium yarn. Perfect for birthdays, anniversaries, and Valentine\'s Day.', badge:'Best Seller' },
-  { id:2, name:'Sunflower Bouquet', emoji:'🌻', category:'sunflower', price:449, rating:5, reviews:97, colors:['#F5D878','#E8C040','#B8D4B8'], description:'A cheerful bouquet of hand-crocheted sunflowers — bright, warm, and eternally beautiful.', badge:'Trending' },
-  { id:3, name:'Mini Bunny Plushie', emoji:'🐰', category:'plushies', price:279, rating:5, reviews:84, colors:['#F7C5C5','#FFFFFF','#D8C8E8'], description:'The most adorable little bunny, entirely handmade. A perfect companion or gift for all ages.', badge:'Cute!' },
-  { id:4, name:'Heart Keychain', emoji:'💗', category:'keychains', price:149, rating:4.8, reviews:203, colors:['#F7C5C5','#D8C8E8','#F5D878','#B8D4B8'], description:'Carry your love everywhere with our hand-crocheted heart keychain in your favorite color.', badge:'Popular' },
-  { id:5, name:'Mixed Floral Bouquet', emoji:'🌸', category:'hearts', price:549, rating:5, reviews:62, colors:['#F7C5C5','#D8C8E8','#F5D878'], description:'A beautiful mix of crochet roses, daisies, and hearts. The ultimate romantic bouquet.', badge:'Premium' },
-  { id:6, name:'Avocado Keychain', emoji:'🥑', category:'keychains', price:179, rating:4.9, reviews:156, colors:['#B8D4B8','#F5D878'], description:'An adorably cute avocado keychain crocheted with premium green yarn. A conversation starter!', badge:'Trendy' },
-  { id:7, name:'Gift Hamper – Bloom', emoji:'🎁', category:'hampers', price:899, rating:5, reviews:45, colors:['#F7C5C5','#D8C8E8'], description:'A curated gift hamper with a heart bouquet, two keychains, and a mini plushie — beautifully packaged.', badge:'Gift Ready' },
-  { id:8, name:'Mini Bear Plushie', emoji:'🐻', category:'plushies', price:299, rating:4.9, reviews:71, colors:['#E8C8B0','#F7C5C5','#D8C8E8'], description:'A tiny, huggable crochet bear made with ultra-soft premium yarn. The perfect cuddle buddy.', badge:null },
-  { id:9, name:'Star Keychain', emoji:'⭐', category:'keychains', price:139, rating:4.7, reviews:119, colors:['#F5D878','#E8C040','#F7C5C5'], description:'A charming crocheted star keychain — spread a little magic wherever you go!', badge:null },
-  { id:10, name:'Custom Bouquet', emoji:'✨', category:'custom', price:599, rating:5, reviews:38, colors:[], description:'Fully customized crochet bouquet — your choice of flowers, colors, sizes, and personalized message.', badge:'Custom' },
-  { id:11, name:'Lavender Bouquet', emoji:'💜', category:'sunflower', price:399, rating:4.9, reviews:53, colors:['#D8C8E8','#C4A8D8','#F7C5C5'], description:'A romantic lavender-toned crochet bouquet — ethereal, elegant, and timeless.', badge:null },
-  { id:12, name:'Premium Gift Hamper', emoji:'🎀', category:'hampers', price:1199, rating:5, reviews:29, colors:['#F7C5C5','#D8C8E8','#F5D878'], description:'Our most luxurious gift set — a sunflower bouquet, three keychains, one plushie, and a greeting card.', badge:'Luxury' },
+  { id:1, name:'Heart Bouquet', image:'./assets/images/heart-bouquet.jpg', category:'hearts', price:349, rating:5, reviews:128, colors:['#F7C5C5','#D8C8E8','#F5D878'], description:'A stunning bouquet of handcrafted crochet hearts in premium yarn. Perfect for birthdays, anniversaries, and Valentine\'s Day.', badge:'Best Seller' },
+  { id:2, name:'Sunflower Bouquet', image:'./assets/images/sunflower-bouquet.jpg', category:'sunflower', price:449, rating:5, reviews:97, colors:['#F5D878','#E8C040','#B8D4B8'], description:'A cheerful bouquet of hand-crocheted sunflowers — bright, warm, and eternally beautiful.', badge:'Trending' },
+  { id:3, name:'Mini Bunny Plushie', image:'./assets/images/mini-bunny-plushie.jpg', category:'plushies', price:279, rating:5, reviews:84, colors:['#F7C5C5','#FFFFFF','#D8C8E8'], description:'The most adorable little bunny, entirely handmade. A perfect companion or gift for all ages.', badge:'Cute!' },
+  { id:4, name:'Heart Keychain', image:'./assets/images/heart-keychain.jpg', category:'keychains', price:149, rating:4.8, reviews:203, colors:['#F7C5C5','#D8C8E8','#F5D878','#B8D4B8'], description:'Carry your love everywhere with our hand-crocheted heart keychain in your favorite color.', badge:'Popular' },
+  { id:5, name:'Mixed Floral Bouquet', image:'./assets/images/mixed-floral-bouquet.jpg', category:'hearts', price:549, rating:5, reviews:62, colors:['#F7C5C5','#D8C8E8','#F5D878'], description:'A beautiful mix of crochet roses, daisies, and hearts. The ultimate romantic bouquet.', badge:'Premium' },
+  {id: 6, name: 'Mini Heart Keychain', image:'./assets/images/mini-heart-keychain.jpg', category:'keychains', price:129, rating:4.9, reviews:142, colors:['#F7C5C5','#D8C8E8','#F5D878'], description:'A tiny heart keychain, hand-crocheted with love. A sweet accessory to keep your loved ones close.', badge:'New Arrival' },
+  { id:7, name:'Gift Hamper – Bloom', image:'./assets/images/gift-hamper.jpg', category:'hampers', price:899, rating:5, reviews:45, colors:['#F7C5C5','#D8C8E8'], description:'A curated gift hamper with a heart bouquet, two keychains, and a mini plushie — beautifully packaged.', badge:'Gift Ready' },
+  { id:8, name:'Mini Bear Plushie', image:'./assets/images/mini-bear-plushie.jpg', category:'plushies', price:299, rating:4.9, reviews:71, colors:['#E8C8B0','#F7C5C5','#D8C8E8'], description:'A tiny, huggable crochet bear made with ultra-soft premium yarn. The perfect cuddle buddy.', badge:null },
+  { id:9, name:'Star Keychain', image:'./assets/images/star-keychain.jpg', category:'keychains', price:139, rating:4.7, reviews:119, colors:['#F5D878','#E8C040','#F7C5C5'], description:'A charming crocheted star keychain — spread a little magic wherever you go!', badge:null },
+  { id:10, name:'Custom Bouquet', image:'./assets/images/custom-bouquet.jpg', category:'custom', price:599, rating:5, reviews:38, colors:[], description:'Fully customized crochet bouquet — your choice of flowers, colors, sizes, and personalized message.', badge:'Custom' },
+  { id:11, name:'Lavender Bouquet', image:'./assets/images/lavender-bouquet.jpg', category:'sunflower', price:399, rating:4.9, reviews:53, colors:['#D8C8E8','#C4A8D8','#F7C5C5'], description:'A romantic lavender-toned crochet bouquet — ethereal, elegant, and timeless.', badge:null },
+  { id:12, name:'Premium Gift Hamper', image:'./assets/images/gift-hamper–bloom.jpg', category:'hampers', price:1199, rating:5, reviews:29, colors:['#F7C5C5','#D8C8E8','#F5D878'], description:'Our most luxurious gift set — a sunflower bouquet, three keychains, one plushie, and a greeting card.', badge:'Luxury' },
+  { id: 13, name: 'Sunflower Keychain', image: './assets/images/sunflower-keychain.jpeg', category: 'keychains', price: 99, rating: 4.8, reviews: 88, colors: ['#F5D878','#E8C040'], description: 'A bright and cheerful sunflower keychain, hand-crocheted with love. A perfect little gift or treat for yourself.', badge: 'New Arrival' },
+  { id: 14, name: 'Daisy Keychain', image: './assets/images/daisy-keychain.jpeg', category: 'keychains', price: 99, rating: 4.7, reviews: 76, colors: ['#FFFFFF','#F5D878'], description: 'A delicate daisy keychain, hand-crocheted with soft white and yellow yarn. A sweet accessory for your keys or bag.', badge: 'New Arrival' },
+  { id: 15, name: 'Peackock Feather Keychain', image: './assets/images/peacock-feather-keychain.jpeg', category: 'keychains', price: 129, rating: 4.9, reviews: 64, colors: ['#B8D4B8','#E8C040','#F7C5C5'], description: 'A vibrant peacock feather keychain, hand-crocheted with premium yarn in stunning colors. A unique accessory to brighten your day.', badge: 'New Arrival' },
+  { id: 16, name: 'Bow CLip', image: './assets/images/bow-clip.jpeg', category: 'accessories', price: 79, rating: 4.6, reviews: 42, colors: ['#F5D878','#E8C040','#F7C5C5'], description: 'A cute bow clip, hand-crocheted with soft yarn. Perfect for adding a touch of charm to your hairstyle.', badge: 'New Arrival' },
+  { id: 17, name: 'Sunflower Rubber Band', image: './assets/images/sunflower-rubber-band.jpeg', category: 'accessories', price: 89, rating: 4.8, reviews: 54, colors: ['#F5D878','#E8C040'], description: 'A cute sunflower rubber band, hand-crocheted with soft yarn and attached to a durable elastic band. Perfect for adding a touch of sunshine to your hairstyle.', badge: 'New Arrival' },
+  { id: 18, name: 'Cherry Keychain', image: './assets/images/cherry-keychain.jpeg', category: 'keychains', price: 99, rating: 4.7, reviews: 68, colors: ['#F7C5C5','#E8C040'], description: 'A sweet cherry keychain, hand-crocheted with vibrant red and green yarn. A delightful accessory for your keys or bag.', badge: 'New Arrival' },
+  { id: 19, name: 'Mini Cat Plushie', image: './assets/images/mini-cat-plushie.jpeg', category: 'plushies', price: 299, rating: 4.9, reviews: 72, colors: ['#E8C8B0','#F7C5C5','#D8C8E8'], description: 'An adorable mini cat plushie, hand-crocheted with ultra-soft premium yarn. The perfect cuddle buddy for cat lovers.', badge: 'New Arrival' },
+  { id: 20, name: 'Evil Eye Keychain', image: './assets/images/evil-eye-keychain.jpeg', category: 'keychains', price: 109, rating: 4.8, reviews: 58, colors: ['#B8D4B8','#E8C040','#F7C5C5'], description: 'A protective evil eye keychain, hand-crocheted with vibrant yarn. A stylish accessory believed to ward off negativity.', badge: 'New Arrival' },
+  {id: 21, name: 'Rose Bag', image: './assets/images/rose-bag.jpeg', category: 'accessories', price: 499, rating: 4.9, reviews: 34, colors: ['#F7C5C5','#D8C8E8','#F5D878'], description: 'A charming rose bag, hand-crocheted with premium yarn. Perfect for carrying your essentials with a touch of floral elegance.', badge: 'New Arrival' },
+  {id: 22, name: 'Cup Coaster Set', image: './assets/images/cup-coaster-set.jpeg', category: 'home-decor', price: 299, rating: 4.8, reviews: 46, colors: ['#F5D878','#E8C040','#F7C5C5'], description: 'A set of four cup coasters, hand-crocheted with vibrant yarn. A stylish and functional addition to your home decor.', badge: 'New Arrival' },
 ];
 
 const galleryItems = [
-  { emoji:'🌸', category:'bouquets', color:'#FFE4E4', height:'220px', label:'Rose Bouquet' },
-  { emoji:'🌻', category:'bouquets', color:'#FFF8D4', height:'180px', label:'Sunflower Set' },
-  { emoji:'🔑', category:'keychains', color:'#F0E8FF', height:'200px', label:'Heart Keychain' },
-  { emoji:'🧸', category:'plushies', color:'#E4FFE8', height:'240px', label:'Bear Plushie' },
+  { image:'./assets/images/rose-bouquet.jpg', category:'bouquets', color:'#FFE4E4', height:'220px', label:'Rose Bouquet' },
+  { image:'./assets/images/sunflower-set.jpg', category:'bouquets', color:'#FFF8D4', height:'180px', label:'Sunflower Set' },
+  { image:'./assets/images/heart-keychains.jpg', category:'keychains', color:'#F0E8FF', height:'200px', label:'Heart Keychain' },
+  { image:'./assets/images/', category:'plushies', color:'#E4FFE8', height:'240px', label:'Bear Plushie' },
   { emoji:'💕', category:'gifts', color:'#FFE8F0', height:'180px', label:'Gift Hamper' },
   { emoji:'🌷', category:'bouquets', color:'#FFE4E4', height:'200px', label:'Mixed Blooms' },
   { emoji:'🐰', category:'plushies', color:'#F0E8FF', height:'220px', label:'Bunny Plushie' },
@@ -1785,7 +1797,7 @@ function renderProductCard(p, small=false) {
   return `
   <div class="product-card" onclick="openProduct(${p.id})">
     <div class="card-img" style="background:linear-gradient(135deg,${p.colors[0]||'#F7C5C5'}33,${(p.colors[1]||p.colors[0]||'#D8C8E8')}33);">
-      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:${small?'3.5':'4.5'}rem;">${p.emoji}</div>
+      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:${small?'3.5':'4.5'}rem;"><img src=${p.image} alt=${p.name}/></div>
       ${p.badge?`<div style="position:absolute;top:12px;left:12px;background:linear-gradient(135deg,var(--rose),var(--lilac));color:white;font-size:0.7rem;font-weight:700;padding:0.25rem 0.75rem;border-radius:20px;letter-spacing:0.05em;">${p.badge}</div>`:''}
       <button class="wishlist-btn ${inWish?'active':''}" onclick="event.stopPropagation();toggleWishlist(${p.id},this)">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="${inWish?'var(--rose)':'none'}" stroke="${inWish?'var(--rose)':'var(--text-light)'}" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
@@ -1892,11 +1904,11 @@ function openProduct(id) {
 
   document.getElementById('product-images').innerHTML = `
     <div style="background:linear-gradient(135deg,${p.colors[0]||'#F7C5C5'}33,${(p.colors[1]||p.colors[0]||'#D8C8E8')}33);border-radius:32px;padding:4rem;text-align:center;min-height:380px;display:flex;align-items:center;justify-content:center;position:relative;">
-      <div style="font-size:10rem;line-height:1;transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform=''">${p.emoji}</div>
+      <div style="font-size:10rem;line-height:1;transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform=''"><img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;"></div>
       ${p.badge?`<div style="position:absolute;top:20px;left:20px;background:linear-gradient(135deg,var(--rose),var(--lilac));color:white;font-size:0.75rem;font-weight:700;padding:0.35rem 1rem;border-radius:20px;">${p.badge}</div>`:''}
     </div>
     <div class="flex gap-3 mt-4">
-      ${p.colors.slice(0,4).map(c=>`<div style="width:48px;height:48px;border-radius:12px;background:${c}22;border:2px solid ${c};display:flex;align-items:center;justify-content:center;font-size:1.5rem;cursor:pointer;">${p.emoji}</div>`).join('')}
+      ${p.colors.slice(0,4).map(c=>`<div style="width:48px;height:48px;border-radius:12px;background:${c}22;border:2px solid ${c};display:flex;align-items:center;justify-content:center;font-size:1.5rem;cursor:pointer;"><img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;"></div>`).join('')}
     </div>
   `;
 
@@ -2199,7 +2211,7 @@ function renderGallery() {
   el.innerHTML=items.map(g=>`
     <div class="masonry-item" style="height:${g.height};">
       <div style="background:linear-gradient(135deg,${g.color},${g.color}88);height:100%;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform=''">
-        <div style="font-size:4rem;">${g.emoji}</div>
+        <div style="font-size:4rem;"><img src="${g.image}" alt="${g.label}" style="width:100%;height:100%;object-fit:cover;"></div>
         <div style="position:absolute;bottom:12px;left:12px;background:rgba(255,255,255,0.9);border-radius:8px;padding:0.25rem 0.75rem;font-size:0.75rem;font-weight:600;color:var(--text-dark);">${g.label}</div>
       </div>
     </div>
